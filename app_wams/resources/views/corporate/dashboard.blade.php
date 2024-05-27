@@ -37,6 +37,7 @@
         </div>
     </form>
 
+    <!-- chart -->
     <div id="dashboard-pie" class="card" style="display: none; justify-content: center;">
         <div class="row mb-5" style="justify-content: center;">
             <div class="col-lg-4 pt-5">
@@ -48,17 +49,34 @@
                 <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
             </div>
         </div>
+
+        <div class="row mb-5" style="justify-content: center;">
+            <div class="col-lg-12 pt-5">
+                <figure class="highcharts-figure">
+                    <div id="myChart3"></canvas>
+                </figure>
+            </div>
+        </div>
     </div>
+
+    
 
     <!-- js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
     <script>
     $(document).ready(function() {
         var myChart = null;
         var myChart2 = null;
+        var myChart3 = null;
+
 
         $('#filterForm').submit(function(e) {
             e.preventDefault(); // Menghentikan pengiriman formulir secara normal
@@ -75,7 +93,7 @@
                 url: "{{ route('filterprinciple') }}", // Rute yang ditentukan dalam file web.php
                 data: formData, // Data yang dikirimkan ke server
                 success: function(response) {
-                  
+
                   // Tanggapan yang diterima dari server
                     var name = response[0];
                     var bmt = response[1];
@@ -89,6 +107,9 @@
                     var totalFinal = response[4];
                     var sisaSaldo = response[5];
 
+                    // data total project
+                    var formattedData = response[7] ?? response[6]
+
                     // Hancurkan chart lama jika ada
                     if (myChart) {
                         myChart.destroy();
@@ -96,10 +117,14 @@
                     if (myChart2) {
                         myChart2.destroy();
                     }
+                    if (myChart3) {
+                        myChart3.destroy();
+                    }
 
                     // Update data dalam chart atau lakukan tindakan lain sesuai kebutuhan Anda
-                    myChart = updateChart(selectedPrincipal, bmt, services, idProject);
+                    myChart = updateChart(selectedPrincipal, bmt, services, idProject, totalFinal);
                     myChart2 = updateChart2(selectedPrincipal, totalAdvance, totalFinal, sisaSaldo, idProject);
+                    myChart3 = updateChart3(formattedData, selectedPrincipal);
 
                     // Tampilkan bagian dashboard-pie setelah mendapatkan respons
                     $('#dashboard-pie').show();
@@ -113,11 +138,11 @@
         });
 
         // chart 1
-        function updateChart(selectedPrincipal, bmt, services, idProject) {
+        function updateChart(selectedPrincipal, bmt, services, idProject, totalFinal) {
             var ctx = document.getElementById('myChart').getContext('2d');
-            var xValues = ['BMT', 'SERVICE'];
-            var yValues = [bmt, services];
-            var barColors = ["#4285f4", "#ea4335", "#fbbc04", "#34a853", "#ff6d01", "#46bdc6"];
+            var xValues = ['BMT', 'SERVICE', 'TOTAL FINAL'];
+            var yValues = [bmt, services, totalFinal];
+            var barColors = ["#4285f4", "#ea4335", "#00AB4E", "#34a853", "#ff6d01", "#46bdc6"];
 
             return new Chart(ctx, {
                 type: "pie",
@@ -195,9 +220,125 @@
                 }
             });
         }
+
+        // chart 3 bawah
+        function updateChart3(formattedData, selectedPrincipal) {
+          var ctx = document.getElementById('myChart3');
+
+          if ($('#principal_filter').val() === 'all') {
+
+            return Highcharts.chart('myChart3', {
+                  chart: {
+                      type: 'column'
+                  },
+                  title: {
+                    align: 'center',
+                    text: 'Project'
+                  },
+                  subtitle: {
+                      align: 'left',
+                      text: ''
+                  },
+                  accessibility: {
+                      announceNewData: {
+                          enabled: true
+                      }
+                  },
+                  xAxis: {
+                      type: 'category'
+                  },
+                  yAxis: {
+                      title: {
+                          text: 'Total'
+                      }
+                  },
+                  legend: {
+                      enabled: false
+                  },
+                  plotOptions: {
+                      series: {
+                          borderWidth: 0,
+                          dataLabels: {
+                              enabled: true,
+                              format: '{point.y}',  // Menggunakan {point.y} untuk menampilkan nilai total
+                              style: {
+                                  textOutline: false  // Menghilangkan garis luar pada teks
+                              }
+                          }
+                      }
+                  },
+                  tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: 'Principal: {point.project}{point.name}'  // Menampilkan nama proyek di tooltip
+                },
+                  series: [{
+                    name: '',
+                      colorByPoint: true,
+                      data: 
+                          formattedData
+                      
+                  }],
+            });
+          
+          } else {
+            
+            return Highcharts.chart('myChart3', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    align: 'center',
+                    text: 'Project'
+                },
+                subtitle: {
+                    align: 'left',
+                    text: ''
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            // format: '{point.y}', // Menggunakan {point.y} untuk menampilkan nilai total
+                            style: {
+                                textOutline: false // Menghilangkan garis luar pada teks
+                            }
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: 'Project: {point.project}{point.name}'  // Menampilkan nama proyek di tooltip
+                },
+                series: [{
+                    name: 'Principal:'  + " " + selectedPrincipal,
+                    colorByPoint: true,
+                    data: formattedData
+                }],
+            });
+          }
+
+        }
+
     });
 
-
+  
     
 </script>
 
