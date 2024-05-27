@@ -533,6 +533,10 @@ Route::group(['middleware'  => ['auth']], function () {
   Route::post('/Transaction-Maker/RevenuevsCost', [RevenueCostController::class, 'storeTmaker'])->name('store-TMRevCost');
   Route::get('/Delete-all/RevenuevsCost', [RevenueCostController::class, 'deleteAll'])->name('delete-TMRevCost');
 
+  // dashboard corporate
+  Route::post('/filter_principle', [CorporateController::class, 'filterData'])->name('filterprinciple');
+
+
   // DCL
   Route::get('/DCL-DISTRIBUTOR', [DCLController::class, 'indexdisti'])->name('dcldistiindex');
   Route::post('/DCL-DISTRIBUTOR', [DCLController::class, 'storedisti'])->name('dcldististore');
