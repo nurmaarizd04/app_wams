@@ -33,7 +33,7 @@
                 <tr>
                     <td>Client</td>
                     <td>:</td>
-                    <td>{{ $tmreim->client }}</td>
+                    <td>{{ $client->client_name }}</td>
                 </tr>
             </table>
 
@@ -42,7 +42,7 @@
             <h6>Detail Transaction Maker</h6>
             <div class="pb-3 pt-3">
                 <button class="btn btn-primary btn-sm" onclick="CreateTMReim({{ $tmreim->id }})">
-                    Transaction Maker 
+                    Transaction Maker
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
@@ -80,6 +80,9 @@
             {{-- <p>Sisa :Rp. {{number_format($total_final2)}}</p> --}}
 
             <a href="{{ route('opptyprojectindex') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('export-reibursement', ['id' => $tmreim->id]) }}" class="btn btn-success">
+                    Export <i class="fa fa-print"></i>
+                </a>
         </div>
     </div>
     <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,7 +94,7 @@
             </div>
             <div class="modal-body">
                 <div id="page" class="p-2">
-    
+
                 </div>
             </div>
         </div>

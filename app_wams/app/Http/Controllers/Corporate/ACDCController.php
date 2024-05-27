@@ -65,10 +65,10 @@ class ACDCController extends Controller
                 ->select(
                     'create_projects.id',
                     'create_projects.id_project as code',
-                    'create_projects.project_name as name', 
+                    'create_projects.project_name as name',
                     'create_projects.client_name',
                     'create_projects.principal_name',
-                    'create_projects.total_final', 
+                    'create_projects.total_final',
                     'create_projects.created_at'
                 )->latest('create_projects.id');
 
@@ -122,12 +122,12 @@ class ACDCController extends Controller
         $validator = Validator::make($request->all(),[
             'principal_type'  => 'required',
             'principal_name'  => 'required'
-        ]);    
+        ]);
 
         if($validator->fails()) {
             return back()->with('error', 'Field cannot be empty!');
         }
-        
+
         CreatePrincipal::create([
             "principal_type" => $request->principal_type,
             "principal_name" => $request->principal_name,
@@ -140,7 +140,7 @@ class ACDCController extends Controller
 
     public function indexCC ()
     {
-        
+
         $cc = CreateClient::all();
         return view('corporate.ACDC.CreateClient.indexCC',compact('cc'));
     }
@@ -151,7 +151,7 @@ class ACDCController extends Controller
         $validator = Validator::make($request->all(),[
             'client_type'  => 'required',
             'client_name'  => 'required'
-        ]);    
+        ]);
 
         if($validator->fails()) {
             return back()->with('error', 'Field cannot be empty!');
@@ -194,12 +194,15 @@ class ACDCController extends Controller
 
     public function saveCPT (Request $request)
     {
+        $file_name = "";
 
-        $file = $request->file('file');
-        $file_ext = $file->getClientOriginalName();
-        $file_name = time(). $file_ext;
-        $file_path = public_path('file_hitungan/');
-        $file->move($file_path, $file_name);
+        if (!empty($request->file('file'))) {
+            $file = $request->file('file');
+            $file_ext = $file->getClientOriginalName();
+            $file_name = time(). $file_ext;
+            $file_path = public_path('file_hitungan/');
+            $file->move($file_path, $file_name);
+        }
 
         CreateProject::create([
             "id_project" => $request->id_project,
@@ -230,7 +233,7 @@ class ACDCController extends Controller
             ->select('id', 'project_name', 'id_project', 'client_name')
             ->where("client_name", $request->client)
             ->get();
-            
+
         return response($data);
     }
 
@@ -242,7 +245,7 @@ class ACDCController extends Controller
     }
 
     public function saveTM(Request $request)
-    {   
+    {
         $file_request = $request -> file('upload_request');
         $file_ext_request = $file_request -> getClientOriginalName();
         $file_name_request = time(). $file_ext_request;
@@ -307,10 +310,11 @@ class ACDCController extends Controller
         ]);
     }
 
-    
+
     public function showCPT($id)
     {
         $cpt = CreateProject::with('detail')->find($id);
+
         return view('corporate.ACDC.CreateProject.showCPT', compact('cpt'));
     }
 
@@ -345,9 +349,9 @@ class ACDCController extends Controller
                 "id_project" => $request->id_project,
                 "cpt_id" => $request->cpt_id,
             ]);
-            
+
             return redirect()->back()->with('success', 'Update Transaction Maker berhasil');
-            
+
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -378,7 +382,7 @@ class ACDCController extends Controller
     {
         $so = CreateProject::find($id);
         $am = TransactionMakerACDC::all();
-        
+
         foreach ($am as $key => $v) {
             $amid = $so->id; // 2 -> tabel salesorder
 

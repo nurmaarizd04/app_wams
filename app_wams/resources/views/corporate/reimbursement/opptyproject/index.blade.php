@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'All Projects')
+@section('title', 'All Cash Advance')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('newassets/assets/css/pages/fontawesome.css') }}">
@@ -40,7 +40,7 @@
             0 0;
         }
     }
-    
+
     .picker__theme_dark {
         background-color: black;
         color: white;
@@ -57,7 +57,7 @@
     <div class="section-header">
         <div class="card">
             <div class="alert">
-                <h2 class="text-capitalize text-center">List Create Project ACDC</h2>
+                <h2 class="text-capitalize text-center">List Cash Advance</h2>
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
                         <select id="client_filter" class="form-control select2">
                             <option value="" readonly>-----PILIH------</option>
                             @forelse ($client as $item)
-                                <option value="{{ $item->nama }}" readonly>{{ $item->nama }}</option>
+                                <option value="{{ $item->id }}" readonly>{{ $item->client_name }}</option>
                             @empty
                                 <option value="" readonly> No Data <option>
                             @endforelse
@@ -163,7 +163,7 @@
             </div>
             <div class="modal-body">
                 <div id="page" class="p-2">
-    
+
                 </div>
             </div>
         </div>

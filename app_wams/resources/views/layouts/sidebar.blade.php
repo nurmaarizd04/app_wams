@@ -22,8 +22,8 @@
                 <div class="card-body px-5">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown" class="user-dropdown d-flex align-items-center dropend dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-                           
-                            @php($avatar = auth()->user()->avatar)  
+
+                            @php($avatar = auth()->user()->avatar)
                             @if($avatar == null)
                             <div class="avatar bg-warning me-3">
                                 <span class="avatar-content">{{ Auth::user()->getNameInitials() }}</span>
@@ -48,7 +48,7 @@
                 @if (Auth::user()->hasRole('Super Admin'))
                 <ul class="menu">
                     <li class="sidebar-title">SUPER ADMIN TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardSuperAdmin') ? 'active' : ''}}">
                         <a href="/dashboardSuperAdmin" class='sidebar-link'>
@@ -56,7 +56,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('superAdminAllMenu') ? 'active' : ''}}">
                         <a href="/superAdminAllMenu" class='sidebar-link'>
@@ -83,7 +83,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('adminproject/sales') || request()->is('dashboard/salesOrder') || request()->is('slsorder') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
@@ -99,7 +99,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('umViewPiplane') || request()->is('reportp') || request()->is('umViewPm') || request()->is('umViewAdmin')  ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
@@ -166,7 +166,7 @@
                             <span>Elearning</span>
                         </a>
                     </li>
-                    
+
                     <li
                         class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
@@ -174,7 +174,7 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
@@ -182,7 +182,7 @@
                 @if (Auth::user()->hasRole('Project Admins'))
                 <ul class="menu">
                     <li class="sidebar-title bold">PROJECT ADMIN TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardAdmin') ? 'active' : ''}}">
                         <a href="/dashboardAdmin" class='sidebar-link'>
@@ -191,7 +191,7 @@
                         </a>
                     </li>
 
-                    <li 
+                    <li
                     class="sidebar-item {{request()->is('disti') || request()->is('customer/edit/*') || request()->is('customer/show/*') || request()->is('editDisti*') || request()->is('reportp') || request()->is('customer') || request()->is('departemen')   ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-clipboard-fill"></i>
@@ -209,7 +209,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('adminproject') || request()->is('adminproject/create') || request()->is('adminprojectShow*') ? 'active' : ''}}">
                         <a href="/adminproject" class='sidebar-link'>
@@ -233,7 +233,7 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
@@ -241,7 +241,7 @@
                 @if (Auth::user()->hasRole('Finance'))
                 <ul class="menu">
                     <li class="sidebar-title bold">PROJECT FINANCE TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardFinance') ? 'active' : ''}}">
                         <a href="/dashboardFinance" class='sidebar-link'>
@@ -265,7 +265,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('projectF*') ? 'active' : ''}}">
                         <a href="/projectF" class='sidebar-link'>
@@ -296,7 +296,7 @@
                             <span>Purchase</span>
                         </a>
                         <ul class="submenu {{request()->is('data-faktur-pembelian') || request()->is('pembelian') || request()->is('data-pesanan-pembelian') || request()->is('data-pembelian') || request()->is('pesananPembelian/*') || request()->is('showPembelian/*') || request()->is('fakturPembelian/*') || request()->is('detailFaktur/*') || request()->is('pembayaranPembeli/*') || request()->is('createPesananPembelian/*') || request()->is('pembelian/edit/*') || request()->is('detailSyaratFaktur/*') || request()->is('PembeliShow/*') ? 'active' : ''}}">
-                            <li 
+                            <li
                                 class="submenu-item {{request()->is('pembelian') || request()->is('pesananPembelian/*') || request()->is('showPembelian/*') || request()->is('fakturPembelian/*') || request()->is('detailFaktur/*') || request()->is('pembayaranPembeli/*') || request()->is('createPesananPembelian/*') || request()->is('pembelian/edit/*') || request()->is('detailSyaratFaktur/*') || request()->is('PembeliShow/*') || request()->is('FakturPembelian/*')    ? 'active' : '' }}">
                                 <a href="{{ route('pembelian') }}" class='sidebar-link'>
                                     Purchase
@@ -315,22 +315,22 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
-                
+
                 {{-- Corporate --}}
                 @if (Auth::user()->hasRole('Corporate'))
                 <ul class="menu">
                     <li class="sidebar-title bold">CORPORATE TOOLS</li>
-                    
+
                     <li class="sidebar-item {{request()->is('dashboardCorporate') ? 'active' : ''}}">
                         <a href="/dashboardCorporate" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    
+
                     <li class="sidebar-item {{request()->is('projectF*') ? 'active' : ''}}">
                         <a href="/projectF" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
@@ -338,125 +338,53 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}} has-sub">
+                    <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('Transaction-Maker/Reimbursement*') || request()->is('Client-Reimbursement*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>ACDC</span>
                         </a>
-                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}}">
+                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ||  request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}}">
                             <li class="submenu-item {{request()->is('index-createprincipal*') ? 'active' : ''}}">
-                                <a href="/index-createprincipal">Create Principal</a>
+                                <a href="/index-createprincipal">Principal</a>
                             </li>
                             <li class="submenu-item {{request()->is('index-createclient') ? 'active' : ''}}">
-                                <a href="/index-createclient">Create Client</a>
+                                <a href="/index-createclient">Client</a>
                             </li>
                             <li class="submenu-item {{request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}}">
-                                <a href="/index-createproject">Create Project</a>
+                                <a href="/index-createproject">Project</a>
+                            </li>
+                            <li class="submenu-item {{request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
+                                <a href="{{ route('opptyprojectindex') }}">Cash Advance</a>
                             </li>
                         </ul>
                     </li>
-                    
-                    <li class="sidebar-item {{request()->is('PersonelTeam*') || request()->is('Client-Reimbursement*') || request()->is('OpptyProject*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}} has-sub">
+
+                    <li class="sidebar-item {{request()->is('PersonelTeam*') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>Reimbursement</span>
                         </a>
-                        <ul class="submenu {{request()->is('PersonelTeam*') || request()->is('Client-Reimbursement*') || request()->is('OpptyProject*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
+                        <ul class="submenu {{request()->is('PersonelTeam*') ? 'active' : ''}}">
                             <li class="submenu-item {{request()->is('PersonelTeam*') ? 'active' : ''}}">
                                 <a href="{{ route('personelindex') }}">Create Personel Team</a>
                             </li>
-                            <li class="submenu-item {{request()->is('Client-Reimbursement*') ? 'active' : ''}}">
-                                <a href="{{ route('clientindex') }}">Create Client</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('OpptyProject*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
-                                <a href="{{ route('opptyprojectindex') }}">Create ID Oppty/Project</a>
-                            </li>
-                            {{-- <li class="submenu-item {{request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
-                                <a href="{{ route('TMReimbursement') }}">Transaction Maker</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('slistpa') ? 'active' : ''}}">
-                                <a href="/">Transaction Maker Report</a>
-                            </li> --}}
-                        </ul>
-                    </li>
-                    
-                    <li class="sidebar-item {{request()->is('DCL-DISTRIBUTOR*') || request()->is('DCL-SBU*') || request()->is('PIC-Distributor*') || request()->is('Transaction-Maker/DCL*') ? 'active' : ''}} has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people-fill"></i>
-                            <span>DCL</span>
-                        </a>
-                        <ul class="submenu {{request()->is('DCL-DISTRIBUTOR*') || request()->is('DCL-SBU*') || request()->is('PIC-Distributor*') || request()->is('Transaction-Maker/DCL*') ? 'active' : ''}}">
-                            <li class="submenu-item {{request()->is('DCL-DISTRIBUTOR*') ? 'active' : ''}}">
-                                <a href="{{ route('dcldistiindex') }}">Create Distributor</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('DCL-SBU*') ? 'active' : ''}}">
-                                <a href="{{ route('dclsbuindex') }}">Create SBU</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('PIC-Distributor*') || request()->is('Transaction-Maker/DCL*') ? 'active' : ''}}">
-                                <a href="{{ route('picdistiindex') }}">Create PIC Distributor</a>
-                            </li>
-                            {{-- <li class="submenu-item {{request()->is('Transaction-Maker/DCL*') ? 'active' : ''}}">
-                                <a href="{{ route('TMDLCindex') }}">Transaction Maker</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('slistpa') ? 'active' : ''}}">
-                                <a href="/">Transaction Maker Report</a>
-                            </li> --}}
-                        </ul>
-                    </li>
-                    
-                    <li class="sidebar-item {{request()->is('index-createbank*') || request()->is('index-PRK*') ? 'active' : ''}} has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people-fill"></i>
-                            <span>CCM</span>
-                        </a>
-                        <ul class="submenu {{request()->is('index-createbank*') || request()->is('index-PRK*') ? 'active' : ''}}">
-                            <li class="submenu-item {{request()->is('index-createbank*') ? 'active' : ''}}">
-                                <a href="/index-createbank">Create Bank</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('index-PRK*') ? 'active' : ''}}">
-                                <a href="/index-PRK">Create PRK</a>
-                            </li>
-                            {{-- <li class="submenu-item {{request()->is('slistpa') ? 'active' : ''}}">
-                                <a href="/index-TransactionMakerCMM">Transaction Maker</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('slistpa') ? 'active' : ''}}">
-                                <a href="/">Transaction Maker Report</a>
-                            </li> --}}
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{request()->is('SaldoAwal*') || request()->is('Transaction-Maker/RevenuevsCost*') || request()->is('Create/RevenuevsCost*') || request()->is('Report-Transaction-Maker/RevenuevsCost') ? 'active' : ''}} has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people-fill"></i>
-                            <span>Revenue vs Cost</span>
-                        </a>
-                        <ul class="submenu {{request()->is('SaldoAwal*') || request()->is('Transaction-Maker/RevenuevsCost*') || request()->is('Create/RevenuevsCost*') || request()->is('Report-Transaction-Maker/RevenuevsCost') ? 'active' : ''}}">
-                            <li class="submenu-item {{request()->is('SaldoAwal*') || request()->is('Create/RevenuevsCost*') || request()->is('Transaction-Maker/RevenuevsCost*') ? 'active' : ''}}">
-                                <a href="{{ route('index-saldo') }}">Initial Balance</a>
-                            </li>
-                            {{-- <li class="submenu-item {{request()->is('Transaction-Maker/RevenuevsCost') || request()->is('Create/RevenuevsCost') ? 'active' : ''}}">
-                                <a href="{{ route('TMRevCost') }}">Transaction Maker</a>
-                            </li>
-                            <li class="submenu-item {{request()->is('Report-Transaction-Maker/RevenuevsCost') ? 'active' : ''}}">
-                                <a href="{{ route('TMakerRevCost') }}">Transaction Maker Report</a>
-                            </li> --}}
-                        </ul>
-                    </li>
-                    
                     <li class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
                             @csrf
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
                 @if (Auth::user()->hasRole('AM/Sales'))
                 <ul class="menu">
                     <li class="sidebar-title">AM/SALES TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardAmSales') ? 'active' : ''}}">
                         <a href="/dashboardAmSales" class='sidebar-link'>
@@ -464,7 +392,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('slsorder') || request()->is('createodr') || request()->is('Sshow*') || request()->is('Sedit*') ? 'active' : ''}}">
                         <a href="/slsorder" class='sidebar-link'>
@@ -480,7 +408,7 @@
                             <span>Sales Pipeline</span>
                         </a>
                     </li>
-                    
+
                     {{-- <li
                         class="sidebar-item {{request()->is('reportPTech') ? 'active' : ''}}">
                         <a href="/reportPTech" class='sidebar-link'>
@@ -503,7 +431,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('selearning') ? 'active' : ''}}">
                         <a href="/selearning" class='sidebar-link'>
@@ -511,7 +439,7 @@
                             <span>Elearning</span>
                         </a>
                     </li>
-                    
+
                     <li
                         class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
@@ -519,15 +447,15 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
                 @if (Auth::user()->hasRole('Management'))
                 <ul class="menu">
                     <li class="sidebar-title">MANAGEMENT TOOLS</li>
-                    
-                    <li 
+
+                    <li
                         class="sidebar-item {{request()->is('umdashboard') || request()->is('ProjectsAll') || request()->is('ProjectMenang') || request()->is('ProjectKalah') || request()->is('ProjectBastOven') || request()->is('projectBastHold')|| request()->is('projectBastCompleted')  ? 'active' : ''}}">
                         <a href="/umdashboard" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
@@ -535,7 +463,7 @@
                         </a>
                     </li>
 
-                    
+
                     <li
                     class="sidebar-item {{request()->is('approval') || request()->is('inputTwo') || request()->is('detailapproval/*') ? 'active' : ''}} has-sub">
                     <a href="#" class='sidebar-link'>
@@ -630,7 +558,7 @@
                                 </a>
                             </li>
                         </ul>
-                        
+
                     </li>
                     <li
                         class="sidebar-item  ">
@@ -639,14 +567,14 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
                 @if (Auth::user()->hasRole('PM'))
                 <ul class="menu">
                     <li class="sidebar-title">PM TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardpm') ? 'active' : ''}}">
                         <a href="/dashboardpm" class='sidebar-link'>
@@ -686,7 +614,7 @@
                             </li>
                         </ul>
                     </li> --}}
-                    
+
 
                     {{-- <li
                         class="sidebar-item {{request()->is('report-timeline') || request()->is('detail_report*') ? 'active' : ''}}">
@@ -703,7 +631,7 @@
                             <span>Report Task Progress</span>
                         </a>
                     </li> --}}
-                    
+
                     <li
                         class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
@@ -711,14 +639,14 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
 
                 @if (Auth::user()->hasRole('Technikal'))
                 <ul class="menu">
                     <li class="sidebar-title">Technical TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboardTeknikal') ? 'active' : ''}}">
                         <a href="/dashboardTeknikal" class='sidebar-link'>
@@ -767,8 +695,8 @@
                             <span>Elearning</span>
                         </a>
                     </li>
-                    
-                    
+
+
                     <li
                         class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
@@ -776,20 +704,20 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
                 @if (Auth::user()->hasRole('HRD'))
                 <ul class="menu">
                     <li class="sidebar-title">HRD TOOLS</li>
-                    
+
                     <li
                         class="sidebar-item {{request()->is('dashboard-hrd') ? 'active' : ''}}">
                         <a href="/dashboard-hrd" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
-                    </li>    
+                    </li>
 
                     <li
                         class="sidebar-item {{request()->is('hrd') ? 'active' : ''}}">
@@ -798,7 +726,7 @@
                             <span>Data Karyawan</span>
                         </a>
                     </li>
-                    
+
                     <li
                         class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
@@ -806,7 +734,7 @@
                             <button class="btn btn-danger text-white w-100">Logout</button>
                         </form>
                     </li>
-                    
+
                 </ul>
                 @endif
             </div>

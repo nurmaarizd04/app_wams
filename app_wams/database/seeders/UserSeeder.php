@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // !buat akun 
+        // !buat akun
 
         // //!/ user AM SALES
 
@@ -42,9 +42,9 @@ class UserSeeder extends Seeder
         ]);
         // kita asiggin rolenya
         $dianOctavia->assignRole('AM/Sales');
-        
-       
-        
+
+
+
         // $inckasukmawati = User::create([
         //     'name' => "Incka Sukmawati",
         //     'email' => 'incka_sukmawati@gmail.com',
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $inckasukmawati->assignRole('AM/Sales');
-        
+
         $meita = User::create([
             'name' => "Meita",
             'email' => 'meita@gmail.com',
@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
         // ]);
         // // // kita asiggin rolenya
         // $bobbywibowo->assignRole('PM');
-        
+
         //! PM
         $pipikelana = User::create([
             'name' => "Pipi Kelana",
@@ -91,7 +91,7 @@ class UserSeeder extends Seeder
         ]);
         // // kita asiggin rolenya
         $pipikelana->assignRole('PM');
-        
+
         // $firman = User::create([
         //     'name' => "Firman",
         //     'email' => 'firman@gmail.com',
@@ -102,7 +102,7 @@ class UserSeeder extends Seeder
         // ]);
         // // // kita asiggin rolenya
         // $firman->assignRole('PM');
-        
+
         $ronaldnapitupulu = User::create([
             'name' => "Ronald Napitupulu",
             'email' => 'ronald@gmail.com',
@@ -126,7 +126,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $ali->assignRole('Technikal');
-        
+
         // $febry = User::create([
         //     'name' => "febry",
         //     'email' => 'febry@gmail.com',
@@ -137,7 +137,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $febry->assignRole('Technikal');
-        
+
         // $julian = User::create([
         //     'name' => "julian",
         //     'email' => 'julian@gmail.com',
@@ -148,7 +148,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $julian->assignRole('Technikal');
-        
+
         // $socrates = User::create([
         //     'name' => "socrates",
         //     'email' => 'socrates@gmail.com',
@@ -159,7 +159,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $socrates->assignRole('Technikal');
-        
+
         // $sandy = User::create([
         //     'name' => "sandy",
         //     'email' => 'sandy@gmail.com',
@@ -193,7 +193,7 @@ class UserSeeder extends Seeder
         ]);
         // kita asiggin rolenya
         $fathur->assignRole('Technikal');
-        
+
         $nino = User::create([
             'name' => "Nino",
             'email' => 'nino@gmail.com',
@@ -204,7 +204,7 @@ class UserSeeder extends Seeder
         ]);
         // kita asiggin rolenya
         $nino->assignRole('Technikal');
-        
+
         // $fadli = User::create([
         //     'name' => "fadli",
         //     'email' => 'fadli@gmail.com',
@@ -215,7 +215,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $fadli->assignRole('Technikal');
-        
+
         // $althaf = User::create([
         //     'name' => "althaf",
         //     'email' => 'althaf@gmail.com',
@@ -226,7 +226,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $althaf->assignRole('Technikal');
-        
+
         // $arizd = User::create([
         //     'name' => "arizd",
         //     'email' => 'arizd@gmail.com',
@@ -237,7 +237,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $arizd->assignRole('Technikal');
-        
+
         // $adhit = User::create([
         //     'name' => "adhit",
         //     'email' => 'adhit@gmail.com',
@@ -248,7 +248,7 @@ class UserSeeder extends Seeder
         // ]);
         // // kita asiggin rolenya
         // $adhit->assignRole('Technikal');
-        
+
         // $sofyan = User::create([
         //     'name' => "sofyan",
         //     'email' => 'sofyan@gmail.com',
@@ -262,7 +262,7 @@ class UserSeeder extends Seeder
 
          //!/ user Finance
         $rina = User::create([
-            'name' => "Rina",   
+            'name' => "Rina",
             'email' => 'rina@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('admin1'),
@@ -277,7 +277,7 @@ class UserSeeder extends Seeder
             'name' => "superadmin",
             'email' => 'superadmin@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin1'),
+            'password' => bcrypt('admin1'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -295,7 +295,7 @@ class UserSeeder extends Seeder
         ]);
         // kita asiggin rolenya
         $admin->assignRole('Project Admins');
-        
+
         // $sales = User::create([
         //     'name' => "sales",
         //     'email' => 'sales@gmail.com',
@@ -353,7 +353,7 @@ class UserSeeder extends Seeder
         ]);
         // kita asiggin rolenya
         $finace->assignRole('Finance');
-        
+
         //! user corporate default
         $finace = User::create([
             'name' => "corporate",

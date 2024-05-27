@@ -4,7 +4,7 @@
     <div class="section-header">
         <div class="card">
             <div class="text-center mt-2">
-                <h2 class="text-capitalize">Create Oppty/Project</h2>
+                <h2 class="text-capitalize">Cash Advance</h2>
             </div>
         </div>
     </div>
@@ -21,40 +21,40 @@
                             <option value="Project">Project</option>
                         </select>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">ID</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="ID_opptyproject" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">Nama Project</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="nama_project" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">PIC Business Channel</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="pic_bussiness_channel" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">Client</label>
                     <div class="col-sm-10">
                         <select name="client" class="form-control select" required>
                             <option value="">------PILIH------</option>
                             @foreach($customer as $row)
-                                <option value="{{ $row->nama }}">{{ $row->nama }}</option>
+                                <option value="{{ $row->id }}">{{ $row->client_name }}</option>
                             @endforeach
                         </select>
                     </div>
-                </div> 
+                </div>
 
                 <div class="text-end">
                     <a href="{{ route('opptyprojectindex') }}" class="btn btn-secondary">Back</a>
