@@ -338,12 +338,12 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('Transaction-Maker/Reimbursement*') || request()->is('Client-Reimbursement*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}} has-sub">
+                    <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>ACDC</span>
                         </a>
-                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ||  request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}}">
+                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}}">
                             <li class="submenu-item {{request()->is('index-createprincipal*') ? 'active' : ''}}">
                                 <a href="/index-createprincipal">Principal</a>
                             </li>
@@ -353,20 +353,20 @@
                             <li class="submenu-item {{request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}}">
                                 <a href="/index-createproject">Project</a>
                             </li>
-                            <li class="submenu-item {{request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
-                                <a href="{{ route('opptyprojectindex') }}">Cash Advance</a>
-                            </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{request()->is('PersonelTeam*') ? 'active' : ''}} has-sub">
+                    <li class="sidebar-item {{request()->is('PersonelTeam*') ||  request()->is('OpptyProject*') ||  request()->is('Transaction-Maker/Reimbursement*') || request()->is('Client-Reimbursement*') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>Reimbursement</span>
                         </a>
-                        <ul class="submenu {{request()->is('PersonelTeam*') ? 'active' : ''}}">
+                        <ul class="submenu {{request()->is('PersonelTeam*') ||  request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
                             <li class="submenu-item {{request()->is('PersonelTeam*') ? 'active' : ''}}">
-                                <a href="{{ route('personelindex') }}">Create Personel Team</a>
+                                <a href="{{ route('personelindex') }}">Personel Team</a>
+                            </li>
+                            <li class="submenu-item {{request()->is('OpptyProject*') || request()->is('Client-Reimbursement*') || request()->is('Transaction-Maker/Reimbursement*') ? 'active' : ''}}">
+                                <a href="{{ route('opptyprojectindex') }}">Reimbursement</a>
                             </li>
                         </ul>
                     </li>

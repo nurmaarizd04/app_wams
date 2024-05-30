@@ -9,7 +9,7 @@
     <div class="section-header">
         <div class="card">
             <div class="text-center mt-2">
-                <h2 class="text-capitalize">Create Oppty/Project</h2>
+                <h2 class="text-capitalize">Edit {{ $data->nama_project }}({{ $data->ID_opptyproject}})</h2>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">Nama Project</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_project" value="{{ $data->ID_opptyproject }}" required>
+                        <input type="text" class="form-control" name="nama_project" value="{{ $data->nama_project }}" required>
                     </div>
                 </div>
 
@@ -61,6 +61,13 @@
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+
+                 <div class="mb-2 row">
+                    <label  class="col-sm-2 col-form-label" style="font-size: 12px">Keterangan</label>
+                    <div class="col-sm-10">
+                        <textarea rows="10" class="form-control" name="keterangan" required>{{ $data->keterangan }}</textarea>
                     </div>
                 </div>
 

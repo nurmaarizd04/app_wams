@@ -105,6 +105,7 @@ trait Excel
         $report_data->setCellValue('D' . $start_from, 'PIC Business Channel')->getColumnDimension('D')->setWidth(20);
         $report_data->setCellValue('E' . $start_from, 'Client')->getColumnDimension('E')->setWidth(20);
         $report_data->setCellValue('F' . $start_from, 'PIC Client')->getColumnDimension('F')->setWidth(20);
+        $report_data->setCellValue('G' . $start_from, 'Nominal')->getColumnDimension('G')->setWidth(20);
 
         $sum = $start_from;
         foreach($tm as $val) {
@@ -115,6 +116,7 @@ trait Excel
             $report_data->setCellValue("D$sum", $val->pic_business_channel);
             $report_data->setCellValue("E$sum", $val->client);
             $report_data->setCellValue("F$sum", $val->pic_client);
+            $report_data->setCellValue("G$sum", $val->nominal_reimbursement);
         }
 
         $report_header = 'A1:H1';

@@ -33,7 +33,7 @@
     </div>
 
     <div class="mb-2 row">
-        <label  class="col-sm-2 col-form-label" style="font-size: 12px">PIC Business Channel</label>
+        <label  class="col-sm-2 col-form-label" style="font-size: 12px">PIC</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="pic_business_channel" value="{{$item->pic_bussiness_channel}}" readonly>
         </div>

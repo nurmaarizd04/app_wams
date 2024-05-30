@@ -19,7 +19,9 @@ class CreateOpptyProjectsTable extends Migration
             $table->string('ID_opptyproject');
             $table->string('nama_project');
             $table->string('pic_bussiness_channel');
-            $table->string('client');
+            $table->integer('client');
+            $table->string('keterangan');
+            $table->string('file');
             $table->timestamps();
         });
     }

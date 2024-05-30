@@ -27,7 +27,7 @@ class ReimbursementController extends Controller
         $divisi = Divisi::all();
         $personel = PersonelTeam::all();
 
-        return view('corporate.reimbursement.personelteam.index', compact('divisi','personel'));
+        return view('corporate.reimbursement.personelteam.index', compact('divisi', 'personel'));
     }
 
     public function storePersonelteam(Request $request)
@@ -43,12 +43,11 @@ class ReimbursementController extends Controller
 
             $pt = new PersonelTeam;
 
-            $pt->divisi=$request->divisi;
-            $pt->nama_personel=$request->nama_personel;
+            $pt->divisi = $request->divisi;
+            $pt->nama_personel = $request->nama_personel;
             $pt->save();
 
             return redirect()->back()->with('success', 'Berhasil buat Personel');
-
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -67,11 +66,11 @@ class ReimbursementController extends Controller
         $noCustomer = 1;
 
         if ($jumlahDataCutomer  == 0) {
-            $ResultsnoCustomer = 'CUS'.sprintf("%03s", $noCustomer);
+            $ResultsnoCustomer = 'CUS' . sprintf("%03s", $noCustomer);
         } else {
             $ambilNoUrutuSeblumnya = Customer::all()->last();
             $nomoerUrut = (int)substr($ambilNoUrutuSeblumnya->IDCustomer, -3) + 1;
-            $ResultsnoCustomer = 'CUS'.sprintf("%03s", $nomoerUrut);
+            $ResultsnoCustomer = 'CUS' . sprintf("%03s", $nomoerUrut);
         }
 
         return view('corporate.reimbursement.clientreim.create', compact('ResultsnoCustomer'));
@@ -79,14 +78,14 @@ class ReimbursementController extends Controller
 
     public function storeClient(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'namaCustomer'  => 'required',
-            "noTelephone"   =>'required',
+            "noTelephone"   => 'required',
             "alamat"        => 'required',
         ]);
 
-        if($validator->fails()) {
-            return back()->with('error', 'Silahkan isi data NAMA, NO_TELP DAN ALAMAT!');
+        if ($validator->fails()) {
+            return back()->with('error', $validator->errors());
         }
 
         Customer::create([
@@ -101,7 +100,6 @@ class ReimbursementController extends Controller
         ]);
 
         return redirect('Client-Reimbursement')->with('success', 'Data Customer Berhasil Dibuat!');
-
     }
 
     public function indexOpptyproject(Request $request)
@@ -129,13 +127,13 @@ class ReimbursementController extends Controller
                     return Carbon::parse($val->created_at)->translatedFormat("Y-m-d");
                 })
                 ->addColumn('action', function ($val) {
-                    $edit_url = route('reibursment.edit',$val->id);
+                    $edit_url = route('reibursment.edit', $val->id);
                     $detail_url = route('show-TMReimbursement', $val->id);
 
                     $btn_edit = "<a href='$edit_url' class='btn btn-warning btn-sm text-white'><i class='fa fa-edit'></i></a>";
                     $btn_detail = "<a href='$detail_url' class='btn btn-info btn-sm text-white'><i class='fa fa-eye'></i></a>";
-                    $btn_delete = ' <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" data-id="'.$val->id.'" title="Hapus data"><i class="fas fa-trash "></i></a>';
-                    $transMaker = '<a href="javascript:void(0)" class="btn btn-primary btn-sm maker" onclick="CreateTMReim('. $val->id .')">Transaction Maker</a>';
+                    $btn_delete = ' <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" data-id="' . $val->id . '" title="Hapus data"><i class="fas fa-trash "></i></a>';
+                    $transMaker = '<a href="javascript:void(0)" class="btn btn-primary btn-sm maker" onclick="CreateTMReim(' . $val->id . ')">Transaction Maker</a>';
 
 
                     return $btn_detail . ' ' . $btn_edit . ' ' . $btn_delete . ' ' . $transMaker;
@@ -173,7 +171,7 @@ class ReimbursementController extends Controller
     public function createOpptyproject()
     {
         $customer = CreateClient::select("id", "client_name")->get();
-        $pt= PersonelTeam::select("id", "nama_personel")->get();
+        $pt = PersonelTeam::select("id", "nama_personel")->get();
 
         return view('corporate.reimbursement.opptyproject.create', compact('customer', 'pt'));
     }
@@ -182,11 +180,17 @@ class ReimbursementController extends Controller
     {
         try {
             $validate = Validator::make($request->all(), [
-                // "jumlah_saldo" => "required|string|max:30",
-                // "institusi" => "required|string",
-                // "project" => "required|string",
-                // "no_doc" => "required|string|max:30|unique:sales_orders"
+                "jenis" => "required|string|max:30",
+                "ID_opptyproject" => "required|string",
+                "nama_project" => "required|string",
+                "keterangan" => "required",
             ]);
+
+            $file_request = $request->file('file');
+            $file_ext_request = $file_request->getClientOriginalName();
+            $file_name_request = time() . $file_ext_request;
+            $file_path_request = public_path('fileCorporate/');
+            $file_request->move($file_path_request, $file_name_request);
 
             if ($validate->fails()) {
                 return response()->json($validate->errors());
@@ -197,11 +201,12 @@ class ReimbursementController extends Controller
                 "ID_opptyproject"       => $request->ID_opptyproject,
                 "nama_project"          => $request->nama_project,
                 "pic_bussiness_channel" => $request->pic_bussiness_channel,
-                "client"                => $request->client
+                "client"                => $request->client,
+                "file" => $file_name_request,
+                "keterangan" => $request->keterangan
             ]);
 
             return redirect()->back()->with('success', 'Berhasil buat Project/Oppty');
-
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -222,7 +227,6 @@ class ReimbursementController extends Controller
             ]);
 
             return redirect(route('opptyprojectindex'))->with('success', 'Project/Oppty berhasil diubah');
-
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -230,8 +234,8 @@ class ReimbursementController extends Controller
 
     public function CreateTMReim($id)
     {
-        $item= OpptyProject::find($id);
-        return view('corporate.reimbursement.transactionmaker.create',compact('item'));
+        $item = OpptyProject::find($id);
+        return view('corporate.reimbursement.transactionmaker.create', compact('item'));
     }
 
     public function showTMReim($id)
@@ -244,10 +248,10 @@ class ReimbursementController extends Controller
 
     public function editTmReim($id)
     {
-        $item= TransactionMakerReimbursement::find($id);
+        $item = TransactionMakerReimbursement::find($id);
         $opptprjt = OpptyProject::all();
 
-        return view('corporate.reimbursement.transactionmaker.edit',compact('item', 'opptprjt'));
+        return view('corporate.reimbursement.transactionmaker.edit', compact('item', 'opptprjt'));
     }
 
     public function storeTmakerreimburs(Request $request)
@@ -266,17 +270,17 @@ class ReimbursementController extends Controller
 
             $file_kwitansi = $request->file('file_kwitansi');
             $file_kwitansi_ext = $file_kwitansi->getClientOriginalName();
-            $file_kwitansi_name = time(). $file_kwitansi_ext;
+            $file_kwitansi_name = time() . $file_kwitansi_ext;
             $file_kwitansi_path = public_path('fileCorporate/');
             $file_kwitansi->move($file_kwitansi_path, $file_kwitansi_name);
 
             $file_MoM = $request->file('file_MoM');
             $file_MoM_ext = $file_MoM->getClientOriginalName();
-            $file_MoM_name = time(). $file_MoM_ext;
+            $file_MoM_name = time() . $file_MoM_ext;
             $file_MoM_path = public_path('fileCorporate/');
             $file_MoM->move($file_MoM_path, $file_MoM_name);
 
-            $data1=$request->all();
+            $data1 = $request->all();
 
             $time = new TransactionMakerReimbursement;
 
@@ -292,7 +296,6 @@ class ReimbursementController extends Controller
             $time->save();
 
             return redirect(route('show-TMReimbursement', $data1['opptyproject_id']))->with('success', 'Berhasil buat Transaction Maker');
-
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -300,7 +303,7 @@ class ReimbursementController extends Controller
 
     public function viewEditTreimburs($id)
     {
-        $item= TransactionMakerReimbursement::find($id);
+        $item = TransactionMakerReimbursement::find($id);
 
         return view('corporate.reimbursement.transactionmaker.updateData', compact('item'));
     }
@@ -331,7 +334,6 @@ class ReimbursementController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Berhasil update Transaction Maker');
-
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
@@ -368,7 +370,6 @@ class ReimbursementController extends Controller
 
         $op->delete();
         return response()->json("Data $op->nama_project berhasil dihapus");
-
     }
 
     public function export($id)

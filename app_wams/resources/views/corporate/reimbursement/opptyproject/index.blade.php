@@ -57,7 +57,7 @@
     <div class="section-header">
         <div class="card">
             <div class="alert">
-                <h2 class="text-capitalize text-center">List Cash Advance</h2>
+                <h2 class="text-capitalize text-center">List Reimbursement</h2>
             </div>
         </div>
     </div>
