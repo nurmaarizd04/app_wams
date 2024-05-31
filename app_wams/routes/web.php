@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DistiController;
 use App\Http\Controllers\Admin\ProfileAdminController;
 use App\Http\Controllers\Admin\sales\AmSalesController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CashAdvanceInternalController;
 use App\Http\Controllers\ContohController;
 use App\Http\Controllers\Corporate\ACDCController;
 use App\Http\Controllers\Corporate\CMMController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Corporate\ReportController as CorporateReportController
 use App\Http\Controllers\Corporate\RevCost\SaldoAwalController;
 use App\Http\Controllers\Corporate\RevenueCostController;
 use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\dashboardCashAdvanceController;
 use App\Http\Controllers\SALES\DashboardAmSalesController;
 use App\Http\Controllers\Technical\DashboardController;
 use App\Http\Controllers\PM\DashboardPmController;
@@ -63,6 +65,7 @@ use App\Http\Controllers\UM\ProjectAllController;
 use App\Models\FakturPenjualan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -610,6 +613,32 @@ Route::group(['middleware'  => ['auth']], function () {
   Route::get('/detailTMCMM/{id}',[CMMController::class,'detailTMCMM'])->name('detailTMCMM');
 
   Route::get('/deletePRK/{id}',[CMMController::class,'deletePRK'])->name('deletePRK');
+
+
+  // CASH ADVANCE INTERNAL
+  Route::get('/dashboardCashAdvanceInternal', [dashboardCashAdvanceController::class, 'index'])->name('dashboardCashAdvanceInternal');
+  Route::post('/filter_pic', [dashboardCashAdvanceController::class, 'filterDataCashAdvance'])->name('filterCashAdvanceDashboard');
+  Route::get('/index-createproject-internal',[CashAdvanceInternalController::class,'indexPJl'])->name('indexPJl');
+  Route::get('datalist-project-internal',[CashAdvanceInternalController::class,'getDataList'])->name('datalist-project-internal');
+  Route::get('/CreateProjectInternal',[CashAdvanceInternalController::class,'createProjectInternal'])->name('/CreateProjectInternal');
+  Route::post('/saveProjectInternal',[CashAdvanceInternalController::class,'saveProjectInternal'])->name('saveProjectInternal');
+  Route::get('/editProjectInternal/{id}',[CashAdvanceInternalController::class,'editProjectInternal'])->name('editProjectInternal');
+  Route::put('/updateProjectInternal/{id}', [CashAdvanceInternalController::class, 'updateProjectInternal'])->name('updateProjectInternal');
+  Route::get('/showProjectInternal/{id}',[CashAdvanceInternalController::class,'showProjectInternal'])->name('showProjectInternal');
+  Route::delete('/deleteProjectInternal/{id}',[CashAdvanceInternalController::class,'deleteProjectInternal'])->name('deleteProjectInternal');
+    // transaction maker internal
+  Route::get('/index-transactionmakerACDC',[CashAdvanceInternalController::class,'indexTMI'])->name('/indexTMI');
+  Route::get('/CreateTMInternal/{id}',[CashAdvanceInternalController::class,'CreateTMInternal'])->name('CreateTMInternal');
+  Route::post('/saveTMACInternal/{id}',[CashAdvanceInternalController::class,'saveTMACInternal'])->name('saveTMACInternal');
+  Route::get('/editTMI/{id}',[CashAdvanceInternalController::class,'editTMI'])->name('editTMI');
+  Route::post('/getProjectByClientInternal',[CashAdvanceInternalController::class,'getPojectByClientInternal'])->name('getProjectByClientInternal');
+  Route::post('/Transaction-Maker/internal/update/{id}',[CashAdvanceInternalController::class,'updateTMACDCINTERNAL'])->name('update-TM-INTERNAL');
+  Route::post('/Transaction-Maker/internal/update-data/{id}',[CashAdvanceInternalController::class,'updateDataTMACDCINTERNAL'])->name('update-data-TM-INTERNAL');
+  Route::get('/editTransactionMakerInternal/{id}',[CashAdvanceInternalController::class,'editTransactionMakerInternal'])->name('editTransactionMakerInternal');
+
+
+  // Route::get('/saveTMI/{id}',[CashAdvanceInternalController::class,'saveTMI'])->name('saveTMI');
+
 
 });
 
