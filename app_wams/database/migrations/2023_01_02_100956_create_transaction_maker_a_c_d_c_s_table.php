@@ -16,12 +16,12 @@ class CreateTransactionMakerACDCSTable extends Migration
         Schema::create('transaction_maker_a_c_d_c_s', function (Blueprint $table) {
             $table->id();
             $table->string('tanggal');
-            $table->string('jenis_transaksi');
+            $table->string('jenis_transaksi')->nullable();
             $table->string('nama_tujuan');
-            $table->bigInteger('nominal');
-            $table->string('keterangan');
-            $table->string('upload_request');
-            $table->string('upload_release');
+            $table->bigInteger('nominal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('upload_request')->nullable();
+            $table->string('upload_release')->nullable();
             $table->timestamps();
         });
     }

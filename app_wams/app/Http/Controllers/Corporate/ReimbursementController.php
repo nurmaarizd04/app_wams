@@ -293,6 +293,8 @@ class ReimbursementController extends Controller
             $time->pic_client               = $data1['pic_client'];
             $time->file_kwitansi            = $data1['file_kwitansi'] = $file_kwitansi_name;
             $time->file_MoM                 = $data1['file_MoM'] = $file_MoM_name;
+            $time->keterangan = $data1['keterangan'];
+
             $time->save();
 
             return redirect(route('show-TMReimbursement', $data1['opptyproject_id']))->with('success', 'Berhasil buat Transaction Maker');
