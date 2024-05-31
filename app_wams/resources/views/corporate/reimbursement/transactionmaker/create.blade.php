@@ -73,6 +73,14 @@
             <input type="file" class="form-control" name="file_MoM" accept="image/*, application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
         </div>
     </div>
+
+    <div class="mb-2 row">
+        <label  class="col-sm-2 col-form-label" style="font-size: 12px">Keterangan</label>
+        <div class="col-sm-10">
+            <textarea rows="10" class="form-control" name="keterangan"></textarea>
+        </div>
+    </div>
+
     <div class="modal-footer">
         <button type="submit" class="btn btn-sm btn-info" >Submit</button>
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">

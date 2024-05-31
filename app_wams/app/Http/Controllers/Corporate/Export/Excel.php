@@ -46,17 +46,35 @@ trait Excel
         $report_data->setCellValue('A' . $start_from, 'Tanggal')->getColumnDimension('A')->setWidth(20);
         $report_data->setCellValue('B' . $start_from, 'Jenis Transaksi')->getColumnDimension('B')->setWidth(20);
         $report_data->setCellValue('C' . $start_from, 'Tujuan')->getColumnDimension('C')->setWidth(20);
-        $report_data->setCellValue('D' . $start_from, 'Keterangan')->getColumnDimension('D')->setWidth(20);
+        $report_data->setCellValue('D' . $start_from, 'Nominal')->getColumnDimension('D')->setWidth(20);
+        $report_data->setCellValue('E' . $start_from, 'Keterangan')->getColumnDimension('E')->setWidth(20);
 
         $sum = $start_from;
+        $tally_nominal = 0;
+        $remaining = 0;
 
-        foreach($transMaker as $val) {
+        foreach ($transMaker as $val) {
             $sum += 1;
             $report_data->setCellValue("A$sum", $val->tanggal);
             $report_data->setCellValue("B$sum", $val->jenis_transaksi);
             $report_data->setCellValue("C$sum", $val->nama_tujuan);
-            $report_data->setCellValue("D$sum", $val->keterangan);
+            $report_data->setCellValue("D$sum", $val->nominal);
+            $report_data->setCellValue("E$sum", $val->keterangan);
+
+            $tally_nominal += $val->nominal;
         }
+
+        $row_tally = $sum + 2;
+
+        $remaining = $project['total_final'] - $tally_nominal;
+
+        $report_data->setCellValue("A$row_tally", "Total Advance");
+        $report_data->setCellValue("B$row_tally", $tally_nominal); // Set Total Advance in column B
+
+        $row_remaining = $row_tally + 1;
+
+        $report_data->setCellValue("A$row_remaining", "Sisa");
+        $report_data->setCellValue("B$row_remaining", $remaining); // Set Sisa in column B
 
         $report_header = 'A1:H1';
         $report_header2 = 'A14:H14';
@@ -82,7 +100,7 @@ trait Excel
         $spreadsheet = new Spreadsheet();
         $myWorksheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, $data['nama_project']);
         $report_data = $spreadsheet->addSheet($myWorksheet, 0);
-        $report_data->setCellValue('A1', 'Cash Advance '. $data['jenis'] . ' ' . $data['nama_project']);
+        $report_data->setCellValue('A1', 'Cash Advance ' . $data['jenis'] . ' ' . $data['nama_project']);
         $client = CreateClient::find($data['client']);
         $start_from = 9;
 
@@ -105,10 +123,11 @@ trait Excel
         $report_data->setCellValue('D' . $start_from, 'PIC Business Channel')->getColumnDimension('D')->setWidth(20);
         $report_data->setCellValue('E' . $start_from, 'Client')->getColumnDimension('E')->setWidth(20);
         $report_data->setCellValue('F' . $start_from, 'PIC Client')->getColumnDimension('F')->setWidth(20);
-        $report_data->setCellValue('G' . $start_from, 'Nominal')->getColumnDimension('G')->setWidth(20);
 
         $sum = $start_from;
-        foreach($tm as $val) {
+        $tally_nominal = 0;
+
+        foreach ($tm as $val) {
             $sum += 1;
             $report_data->setCellValue("A$sum", $val->tanggal_reimbursement);
             $report_data->setCellValue("B$sum", $val->nama_pic_reimbursement);
@@ -116,8 +135,14 @@ trait Excel
             $report_data->setCellValue("D$sum", $val->pic_business_channel);
             $report_data->setCellValue("E$sum", $val->client);
             $report_data->setCellValue("F$sum", $val->pic_client);
-            $report_data->setCellValue("G$sum", $val->nominal_reimbursement);
+
+            $tally_nominal += $val->nominal_reimbursement;
         }
+
+        $row_tally = $sum + 2;
+
+        $report_data->setCellValue("A$row_tally", "Total Advance");
+        $report_data->setCellValue("B$row_tally", $tally_nominal); // Set Total Advance in column B
 
         $report_header = 'A1:H1';
         $report_header2 = 'A14:H14';

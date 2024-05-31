@@ -15,14 +15,15 @@ class CreateTransactionMakerReimbursementsTable extends Migration
     {
         Schema::create('transaction_maker_reimbursements', function (Blueprint $table) {
             $table->id();
-            $table->string('tanggal_reimbursement');
-            $table->string('nama_pic_reimbursement');
-            $table->bigInteger('nominal_reimbursement');
-            $table->string('pic_business_channel');
-            $table->string('client');
-            $table->string('pic_client');
-            $table->string('file_kwitansi');
-            $table->string('file_MoM');
+            $table->string('tanggal_reimbursement')->nullable();
+            $table->string('nama_pic_reimbursement')->nullable();
+            $table->bigInteger('nominal_reimbursement')->nullable();
+            $table->string('pic_business_channel')->nullable();
+            $table->string('client')->nullable();
+            $table->string('pic_client')->nullable();
+            $table->string('file_kwitansi')->nullable();
+            $table->string('file_MoM')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
