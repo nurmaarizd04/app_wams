@@ -40,7 +40,7 @@
             0 0;
         }
     }
-    
+
     .picker__theme_dark {
         background-color: black;
         color: white;
@@ -57,7 +57,7 @@
     <div class="section-header">
         <div class="card">
             <div class="alert">
-                <h2 class="text-capitalize text-center">List Create Project ACDC</h2>
+                <h2 class="text-capitalize text-center">List Project ACDC</h2>
             </div>
         </div>
     </div>
@@ -165,7 +165,7 @@
             </div>
             <div class="modal-body">
                 <div id="page" class="p-2">
-    
+
                 </div>
             </div>
         </div>

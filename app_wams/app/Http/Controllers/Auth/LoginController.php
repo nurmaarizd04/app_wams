@@ -51,85 +51,68 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-        
-        //! ini pengecekan role super
-        if ( Auth::user()->hasRole('Super Admin')) {
-            // jika role super admin  -> arahkan ke dashboard super admin
-            return redirect()->intended('dashboardSuperAdmin');
-        } 
-        
-        //! ini pengecekan role AM/Sales
-        else if (Auth::user()->hasRole('AM/Sales')) {
-            // jika role super AM/Sales'  -> arahkan ke dashboard am/sales
-            return redirect()->intended('dashboardAmSales');
-        }
 
-        //! ini pengecekan role Pm
-        else if (Auth::user()->hasRole('PM')) {
-            // jika role super PM  -> arahkan ke dashboard Pm
-            return redirect()->intended('dashboardpm');
-        } 
+            //! ini pengecekan role super
+            if (Auth::user()->hasRole('Super Admin')) {
+                // jika role super admin  -> arahkan ke dashboard super admin
+                return redirect()->intended('dashboardSuperAdmin');
+            } elseif (Auth::user()->hasRole('AM/Sales')) {
+                // jika role super AM/Sales'  -> arahkan ke dashboard am/sales
+                return redirect()->intended('dashboardAmSales');
+            }
 
-        //! ini pengecekan admin project
-        if ( Auth::user()->hasRole('Project Admins')) {
-            // jika role super admin  -> arahkan ke dashboard super admin
-            return redirect()->intended('dashboardAdmin');
-            // return response()->json([
-            //     "status" => 'ok'
-            // ]);
-        } 
+            //! ini pengecekan role Pm
+            elseif (Auth::user()->hasRole('PM')) {
+                // jika role super PM  -> arahkan ke dashboard Pm
+                return redirect()->intended('dashboardpm');
+            }
 
-        //! ini pengecekan role 
-        else if (Auth::user()->hasRole('Management')) {
-            // jika role super Management  -> arahkan ke dashboard Management
-            return redirect()->intended('umdashboard');
+            //! ini pengecekan admin project
+            if (Auth::user()->hasRole('Project Admins')) {
+                // jika role super admin  -> arahkan ke dashboard super admin
+                return redirect()->intended('dashboardAdmin');
+            }
 
-        } 
+            //! ini pengecekan role
+            elseif (Auth::user()->hasRole('Management')) {
+                // jika role super Management  -> arahkan ke dashboard Management
+                return redirect()->intended('umdashboard');
+            }
 
-        //! ini pengecekan role Technikal
-        else if (Auth::user()->hasRole('Technikal')) {
-            // jika role super Technikal  -> arahkan ke dashboard Technikal
-            return redirect()->intended('dashboardTeknikal');
-        } 
+            //! ini pengecekan role Technikal
+            elseif (Auth::user()->hasRole('Technikal')) {
+                // jika role super Technikal  -> arahkan ke dashboard Technikal
+                return redirect()->intended('dashboardTeknikal');
+            }
 
-        //! ini pengecekan role Pm Lead
-        else if (Auth::user()->hasRole('PM')) {
-            // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
-            return response()->json([
-               
-            ]);
-        } 
+            //! ini pengecekan role Pm Lead
+            elseif (Auth::user()->hasRole('PM')) {
+                // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
+                return response()->json([]);
+            }
 
-        //! ini pengecekan role finance
-        else if (Auth::user()->hasRole('Finance')) {
-            // jika role super finance  -> arahkan ke dashboard finance
-            return redirect()->intended('dashboardFinance');   
-            
-        } 
-        
-        //! ini pengecekan role corporate
-        else if (Auth::user()->hasRole('Corporate')) {
-            // jika role super finance  -> arahkan ke dashboard finance
-            return redirect()->intended('dashboardCorporate');   
-            
-        } 
+            //! ini pengecekan role finance
+            elseif (Auth::user()->hasRole('Finance')) {
+                // jika role super finance  -> arahkan ke dashboard finance
+                return redirect()->intended('dashboardFinance');
+            }
 
-        else if (Auth::user()->hasRole('PM Lead')) {
-            // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
-            return redirect()->intended('dashboardlead');
-        } 
-
-        else if (Auth::user()->hasRole('Technikal Lead')) {
-            // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
-            return redirect()->intended('TechnikalLead');
-        }
-        
-        else {
-            return redirect()->intended('dashboard-hrd');
-        }
-                    
+            //! ini pengecekan role corporate
+            elseif (Auth::user()->hasRole('Corporate')) {
+                // jika role super finance  -> arahkan ke dashboard finance
+                return redirect()->intended('dashboardCorporate');
+            } elseif (Auth::user()->hasRole('PM Lead')) {
+                // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
+                return redirect()->intended('dashboardlead');
+            } elseif (Auth::user()->hasRole('Technikal Lead')) {
+                // jika role super Pm Lead  -> arahkan ke dashboard Pm Lead
+                return redirect()->intended('TechnikalLead');
+            } else {
+                return redirect()->intended('dashboard-hrd');
+            }
         }
 
         return back()->withErrors([
@@ -137,15 +120,15 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
- 
+
         request()->session()->invalidate();
- 
+
         request()->session()->regenerateToken();
- 
+
         return redirect('/login');
     }
 }

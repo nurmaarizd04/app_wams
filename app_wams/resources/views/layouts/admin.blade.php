@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <link rel="icon" href="image/favicon.ico" />
   {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-  <title>WAMS</title>
+  <title>WAMS - @yield('title')</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -20,7 +20,7 @@
   {{-- <link href="filepond.css" rel="stylesheet" /> --}}
 
   {{-- <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.css"> --}}
-  
+
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -34,19 +34,19 @@
     <div class="main-wrapper" style="background-color: white">
       <div class="navbar-bg bg-transparent"></div>
 
-    
+
       @include('partials.navbar')
       @include('partials.sidebar')
-      
-     
-      
+
+
+
 
       <!-- Main Content -->
       <div class="main-content" style="background-color: white">
         @yield('contents')
 
       </div>
-      
+
 
 
     </div>
@@ -73,9 +73,9 @@
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script> --}} -->
-  
+
   {{-- <script src="https://unpkg.com/filepond/dist/filepond.js"></script> --}}
-  
+
   <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
   @yield('scripts')
 

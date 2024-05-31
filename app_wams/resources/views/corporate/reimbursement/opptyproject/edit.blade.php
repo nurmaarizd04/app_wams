@@ -1,4 +1,4 @@
-@php 
+@php
     $data = \Illuminate\Support\Facades\DB::table('oppty_projects')->where('id', request()->route('id'))->first();
     $customer = \Illuminate\Support\Facades\DB::table('customers')->select('nama')->get();
 @endphp
@@ -9,7 +9,7 @@
     <div class="section-header">
         <div class="card">
             <div class="text-center mt-2">
-                <h2 class="text-capitalize">Create Oppty/Project</h2>
+                <h2 class="text-capitalize">Edit {{ $data->nama_project }}({{ $data->ID_opptyproject}})</h2>
             </div>
         </div>
     </div>
@@ -27,42 +27,49 @@
                             <option value="Project" {{ $data->jenis == 'Project' ? 'selected' : '' }}>Project</option>
                         </select>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">ID</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="ID_opptyproject" value="{{ $data->ID_opptyproject }}" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">Nama Project</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_project" value="{{ $data->ID_opptyproject }}" required>
+                        <input type="text" class="form-control" name="nama_project" value="{{ $data->nama_project }}" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">PIC Business Channel</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="pic_bussiness_channel" value="{{ $data->pic_bussiness_channel }}" required>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="mb-2 row">
                     <label  class="col-sm-2 col-form-label" style="font-size: 12px">Client</label>
                     <div class="col-sm-10">
                         <select name="client" class="form-control select" required>
                             <option value="">------PILIH------</option>
                             @foreach($customer as $row)
-                                <option value="{{ $row->nama }}" {{ $data->client == $row->nama ? 'selected' : '' }} >
+                                <option value="{{ $row->id }}" {{ $data->client == $row->client_name ? 'selected' : '' }} >
                                     {{ $row->nama }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-                </div> 
+                </div>
+
+                 <div class="mb-2 row">
+                    <label  class="col-sm-2 col-form-label" style="font-size: 12px">Keterangan</label>
+                    <div class="col-sm-10">
+                        <textarea rows="10" class="form-control" name="keterangan" required>{{ $data->keterangan }}</textarea>
+                    </div>
+                </div>
 
                 <div class="text-end">
                     <a href="{{ route('opptyprojectindex') }}" class="btn btn-secondary">Back</a>

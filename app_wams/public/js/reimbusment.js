@@ -37,7 +37,7 @@ $(function () {
             {data: 'code', name: 'code', orderable: false},
             {data: 'name', name: 'name', orderable: false},
             {data: 'picBChanel', name: 'picBChanel', orderable: false},
-            {data: 'client', name: 'client_name', orderable: false},
+            {data: 'client_name', name: 'client_name', orderable: false},
             {data: 'created_at', name: 'created_at', orderable: false},
             {data: 'action', name: 'action', orderable: true},
         ],
@@ -69,7 +69,7 @@ $(function () {
 
     cb(start, end);
 
-    $(document).on('click', '.delete', function() { 
+    $(document).on('click', '.delete', function() {
        var id = $(this).attr("data-id");
         $.ajaxSetup({
             headers: {

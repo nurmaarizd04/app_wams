@@ -1,7 +1,11 @@
 @extends('layouts.main')
+
+@section('title', 'Create Project')
+
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
+
 @section('content')
     <section class="section">
         <div class="section-header" style="padding-bottom: 30px">
@@ -24,10 +28,10 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">ID Project</label>
                             <div class="col-sm-12 col-md-7">
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="ID Project" 
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="ID Project"
                                     id="code"
                                     name="id_project"
                                     value='{{old('id_project','')}}'
@@ -39,11 +43,11 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Project Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <input 
-                                    type="text" 
-                                    class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" 
-                                    name="project_name" 
-                                    placeholder="Project Name" 
+                                <input
+                                    type="text"
+                                    class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}"
+                                    name="project_name"
+                                    placeholder="Project Name"
                                     autocomplete="Off"
                                     value='{{old('project_name','')}}'
                                     required
@@ -82,7 +86,7 @@
                             <div class="col-sm-12 col-md-7">
                                 <div id="image-preview" class="image-preview">
                                     <label for="image-upload" id="image-label">Choose File</label>
-                                    <input type="file" name="file" accept = "application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+                                    <input type="file" name="file" accept = "application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                 </div>
                             </div>
                         </div>
@@ -93,12 +97,12 @@
                                     <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                     </div>
-                                    <input 
-                                        type="text" 
-                                        id="bmt_awal" 
-                                        class="form-control uang" 
+                                    <input
+                                        type="text"
+                                        id="bmt_awal"
+                                        class="form-control uang"
                                         value='{{old('bmt','')}}'
-                                        name="bmt" 
+                                        name="bmt"
                                         min=1
                                         required
                                     >
@@ -112,11 +116,11 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp</span>
                                     </div>
-                                    <input 
-                                        type="text" 
-                                        id="service" 
-                                        class="form-control uang" 
-                                        name="services" 
+                                    <input
+                                        type="text"
+                                        id="service"
+                                        class="form-control uang"
+                                        name="services"
                                         min=1
                                         value='{{old('services','')}}'
                                         required
@@ -131,12 +135,12 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp</span>
                                     </div>
-                                    <input 
-                                        type="text" 
-                                        id="other" 
-                                        class="form-control uang" 
-                                        aria-label="Amount" 
-                                        name="lain" 
+                                    <input
+                                        type="text"
+                                        id="other"
+                                        class="form-control uang"
+                                        aria-label="Amount"
+                                        name="lain"
                                         value='{{old('lain','')}}'
                                         min=0
                                         required
@@ -151,7 +155,7 @@
                                     <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                     </div>
-                                    <input type="hidden" name="subtotal" id="subtotal" value="0">
+                                    <input type="hidden" name="subtotal" id="subtotal" value="">
                                     <div id="displaySubtotal" class="form-control"></div>
                                 </div>
                             </div>
@@ -189,7 +193,7 @@
                                     <input type="text" id="decrement_cost" class="form-control uang" aria-label="Amount" name="biaya_pengurangan" min=0 required>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Final Subtotal</label>
@@ -201,7 +205,7 @@
                                     <div id="displayFinal" class="form-control">0</div>
                                     <input type="hidden" id="final_subtotal" class="form-control" name="final_subtotal" min=1>
                                 </div>
-                                <p class="text-sm text-muted">Subtotal <b>dari</b> Total BMT+Service - Final</p>
+                                <p class="text-sm text-muted">Subtotal <b>dari</b> Total BMT+Service - (Biaya admin + BPK)</p>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -244,7 +248,7 @@
 
                 let countSubtotal = subtotal
                 const bunga_admin = (Number($("#admin_bunga").val()) / 100) * countSubtotal;
-                
+
                 $("#subtotal").val(countSubtotal)
                 $("#displaySubtotal").text(numberWithCommas(countSubtotal));
 
@@ -315,7 +319,7 @@
 
             $("#decrement_cost").blur(function(e) {
                 e.preventDefault()
-                
+
                 const value_bpk = $(this).val().replace(/\./g, "")
                 const subtotal = $("#subtotal").val().replace(/\./g, "");
                 const admin_cost_value = $("#admin_cost").val().replace(/\./g, "");
@@ -336,13 +340,13 @@
         function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
-        
+
         $("#code_generate").on("click", function() {
             var generate = Math.floor(new Date().valueOf() * Math.random())
             $("#code").val(generate);
         })
 
         $( '.uang' ).mask('000.000.000.000.000', {reverse: true});
-            
+
     </script>
 @endsection

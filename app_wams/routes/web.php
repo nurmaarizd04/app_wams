@@ -13,6 +13,7 @@ use App\Http\Controllers\Corporate\ACDCController;
 use App\Http\Controllers\Corporate\CMMController;
 use App\Http\Controllers\Corporate\CorporateController;
 use App\Http\Controllers\Corporate\DCLController;
+use App\Http\Controllers\Corporate\ExportACDC;
 use App\Http\Controllers\Corporate\ReimbursementController;
 use App\Http\Controllers\Corporate\ReportController as CorporateReportController;
 use App\Http\Controllers\Corporate\RevCost\SaldoAwalController;
@@ -583,6 +584,12 @@ Route::group(['middleware'  => ['auth']], function () {
   Route::delete('/deletecpt/{id}',[ACDCController::class,'deletecpt'])->name('deletecpt');
   Route::get('/getByClient',[ACDCController::class,'getByClient'])->name('getbyclient');
   Route::post('/getProjectByClient',[ACDCController::class,'getPojectByClient'])->name('getProjectByClient');
+
+  // export acdc file
+  Route::get('/export-acdc/{id}', [ExportACDC::class, 'export'])->name('export-acdc');
+
+  // export reimbursement
+  Route::get('/export-reibursement/{id}', [ReimbursementController::class, 'export'])->name('export-reibursement');
 
   //ACDC Transaction Maker
   Route::get('/index-transactionmakerACDC',[ACDCController::class,'indexTM'])->name('/indexTM');

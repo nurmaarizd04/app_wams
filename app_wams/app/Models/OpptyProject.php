@@ -9,9 +9,7 @@ class OpptyProject extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        "jenis", "ID_opptyproject", "nama_project", "pic_bussiness_channel", "client"
-    ];
+    protected $guarded = [];
 
     public function detailtmreim()
     {
