@@ -324,26 +324,33 @@
                 <ul class="menu">
                     <li class="sidebar-title bold">CORPORATE TOOLS</li>
 
-                    <li class="sidebar-item {{request()->is('dashboardCorporate') ? 'active' : ''}}">
+                    <!-- <li class="sidebar-item {{request()->is('dashboardCorporate') ? 'active' : ''}}">
                         <a href="/dashboardCorporate" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
-                    </li>
+                    </li> -->
 
-                    <li class="sidebar-item {{request()->is('projectF*') ? 'active' : ''}}">
+                    <!-- <li class="sidebar-item {{request()->is('projectF*') ? 'active' : ''}}">
                         <a href="/projectF" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Project</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>ACDC</span>
                         </a>
-                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') ? 'active' : ''}}">
+                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') || request()->is('dashboardCorporate*')  ? 'active' : ''}}">
+                    
+                            <li class="submenu-item {{request()->is('dashboardCorporate') ? 'active' : ''}}">
+                                <a href="/dashboardCorporate">
+                                    Dashboard
+                                </a>                            
+                            </li>
+
                             <li class="submenu-item {{request()->is('index-createprincipal*') ? 'active' : ''}}">
                                 <a href="/index-createprincipal">Principal</a>
                             </li>
