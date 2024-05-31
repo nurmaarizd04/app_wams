@@ -371,6 +371,23 @@
                         </ul>
                     </li>
 
+
+                    <!-- cash advance internal -->
+                    <li class="sidebar-item {{request()->is('index-createproject-internal') || request()->is('CreateProjectInternal') || request()->is('showProjectInternal*') || request()->is('editProjectInternal*') || request()->is('dashboardCashAdvanceInternal') ? 'active' : ''}} has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-people-fill"></i>
+                            <span>Cash advance internal</span>
+                        </a>
+                        <ul class="submenu {{request()->is('index-createproject-internal') || request()->is('CreateProjectInternal') || request()->is('showProjectInternal*') || request()->is('editProjectInternal*') || request()->is('dashboardCashAdvanceInternal') ? 'active' : ''}}">
+                            <li class="submenu-item {{request()->is('dashboardCashAdvanceInternal') ? 'active' : ''}}">
+                                <a href="/dashboardCashAdvanceInternal">Dashboard</a>
+                            </li>
+                            <li class="submenu-item {{request()->is('index-createproject-internal') || request()->is('CreateProjectInternal') || request()->is('showProjectInternal*') || request()->is('editProjectInternal*') ? 'active' : ''}}">
+                                <a href="/index-createproject-internal">Create Project</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="sidebar-item  ">
                         <form action="/logout" method="POST" style="">
                             @csrf

@@ -89,7 +89,12 @@ class ACDCController extends Controller
                     $transMaker = '<a href="javascript:void(0)" class="btn btn-primary btn-sm maker" onclick="CreateTM(' . $val->id . ')">Transaction Maker</a>';
 
 
-                    return $btn_detail . ' ' . $btn_edit . ' ' . $btn_delete . ' ' . $transMaker;
+                    if (auth()->user()->name !== 'Bona Napitupulu') {
+                        return $btn_detail . ' ' . $btn_edit . ' ' . $btn_delete . ' ' . $transMaker;
+                    }
+
+                    return $btn_detail;
+
                 })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('search')) {

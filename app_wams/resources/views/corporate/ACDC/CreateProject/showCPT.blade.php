@@ -81,10 +81,12 @@
                 <hr>
 
                 <div class="pt-3 pb-3">
+                @if(auth()->user()->name !== 'Bona Napitupulu')
                     <a href="javascript:void(0)" class="btn btn-primary btn-sm maker"
-                        onclick="CreateTM({{ $cpt->id }})">
-                        Transaction Maker <i class="fa fa-plus"></i>
+                    onclick="CreateTM({{ $cpt->id }})">
+                    Transaction Maker <i class="fa fa-plus"></i>
                     </a>
+                @endif
                 </div>
                 <table class="table table-hover table-responsive table-bordered ">
                     <thead>
@@ -122,10 +124,12 @@
                                     </li>
                                 </ul>
                             </td>
-                            <td>
-                                <a class="btn btn-warning" onclick="moveTM({{ $tm->id }})">Pindah Data</a>
-                                <a class="btn btn-primary" onclick="editTM({{ $tm->id }})">Edit Data</a>
-                            </td>
+                            @if(auth()->user()->name !== 'Bona Napitupulu')
+                                <td>
+                                    <a class="btn btn-warning" onclick="moveTM({{ $tm->id }})">Pindah Data</a>
+                                    <a class="btn btn-primary" onclick="editTM({{ $tm->id }})">Edit Data</a>
+                                </td>
+                            @endif
                         </tr>
                         {{-- </a>     --}}
                         <?php

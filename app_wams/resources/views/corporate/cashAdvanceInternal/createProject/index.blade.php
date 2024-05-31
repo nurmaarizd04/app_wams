@@ -40,7 +40,7 @@
             0 0;
         }
     }
-
+    
     .picker__theme_dark {
         background-color: black;
         color: white;
@@ -57,10 +57,11 @@
     <div class="section-header">
         <div class="card">
             <div class="alert">
-                <h2 class="text-capitalize text-center">List Project ACDC</h2>
+                <h2 class="text-capitalize text-center">List Create Project ACDC</h2>
             </div>
         </div>
     </div>
+
     <div class="card">
         <div class="card-header">
             <h4>Filter</h4>
@@ -69,24 +70,24 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="">Client</label>
+                        <label for="">Nama Project</label>
                         <select id="client_filter" class="form-control select2">
                             <option value="" readonly>-----PILIH------</option>
-                            @forelse ($client as $item)
-                                <option value="{{ $item->client_name }}">{{ $item->client_name }}</option>
+                            @forelse ($idProject as $item)
+                                <option value="{{ $item->nama_project }}">{{ $item->nama_project }}</option>
                             @empty
                                 <option value="">tidak ada data</option>
                             @endforelse
-                        </select>
+                        </select>                        
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="">Principal</label>
+                        <label for="">Nama PIC</label>
                         <select id="principal_filter" class="form-control select2">
                             <option value="" readonly>-----PILIH------</option>
-                            @forelse ($principal as $item)
-                                <option value="{{ $item->principal_name }}">{{ $item->principal_name }}</option>
+                            @forelse ($namaPIC as $item)
+                                <option value="{{ $item->pic }}">{{ $item->pic }}</option>
                             @empty
                                 <option value="">tidak ada data</option>
                             @endforelse
@@ -102,6 +103,7 @@
             </div>
         </div>
     </div>
+
     <div class="card" style="border-radius: 2em">
         <div class="card-header">
             <div class="card-header">
@@ -110,10 +112,10 @@
                     <div class="col pull-right">
                         <div style="float: right;">
                         @if(auth()->user()->name !== 'Bona Napitupulu')
-                        <a href="{{route('/cpt')}}" class="btn btn-primary">
-                            Create <i class="fa fa-plus"></i>
-                        </a>
-                        @endif
+                            <a href="{{route('/CreateProjectInternal')}}" class="btn btn-primary">
+                                Create <i class="fa fa-plus"></i>
+                            </a>
+                          @endif 
                         </div>
                     </div>
                 </div>
@@ -147,8 +149,9 @@
                         <th>Project ID</th>
                         <th>Project</th>
                         <th>Client</th>
-                        <th>Principal</th>
-                        <th>Subtotal Final</th>
+                        <th>Pic</th>
+                        <th>Nominal</th>
+                        <th>Realisasi</th>
                         <th>CreatedAt</th>
                         <th>Action</th>
                     </thead>
@@ -157,7 +160,6 @@
         </div>
         </div>
     </div>
-
     <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -167,7 +169,7 @@
             </div>
             <div class="modal-body">
                 <div id="page" class="p-2">
-
+    
                 </div>
             </div>
         </div>
@@ -182,7 +184,9 @@
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="{{ asset('js/project_acdc.js') }}"></script>
+<!-- <script src="{{ asset('js/project_acdc.js') }}"></script> -->
+<script src="{{ asset('js/project_inernal.js') }}"></script>
+
 
 <script>
     $(init)
@@ -203,8 +207,8 @@
 </script>
 
 <script>
-    function CreateTM(id){
-        $.get("{{url('createTM')}}/"+ id,{},function(data,status){
+    function CreateTMInternal(id){
+        $.get("{{url('CreateTMInternal')}}/"+ id,{},function(data,status){
             $("#exampleModalLabel").html('Transaction Maker')
             $("#page").html(data);
             $("#exampleModal").modal('show');

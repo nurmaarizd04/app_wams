@@ -19,7 +19,9 @@
     </div>
     <div class="card" style="border-radius: 2em">
         <div class="card-header">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Create</button>
+        @if(auth()->user()->name !== 'Bona Napitupulu')
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Create</button>
+        @endif
         </div>
         <div class="card-body">
         <div class="table-responsive">
@@ -29,7 +31,9 @@
                         <th>NO</th>
                         <th>Client Type</th>
                         <th>Client Name</th>
-                        <th>Action</th>
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
+                          <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 @foreach ($cc as $item)
@@ -38,9 +42,11 @@
                         <td>{{$loop->iteration}}</td>
                         <td>{{$item->client_type}}</td>
                         <td>{{$item->client_name}}</td>
-                        <td>
-                          <a href="{{route('deleteCC',$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
+                          <td>
+                            <a href="{{route('deleteCC',$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                          </td>
+                        @endif
                     </tr>
                 </tbody>
                 @endforeach
