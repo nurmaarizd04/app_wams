@@ -109,9 +109,11 @@
                     <div class="col pull-left"></div>
                     <div class="col pull-right">
                         <div style="float: right;">
-                            <a href="{{route('/cpt')}}" class="btn btn-primary">
-                                Create <i class="fa fa-plus"></i>
-                            </a>
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
+                        <a href="{{route('/cpt')}}" class="btn btn-primary">
+                            Create <i class="fa fa-plus"></i>
+                        </a>
+                        @endif
                         </div>
                     </div>
                 </div>

@@ -106,9 +106,11 @@
                     <div class="col pull-left"></div>
                     <div class="col pull-right">
                         <div style="float: right;">
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
                             <a href="{{route('opptyprojectcreate')}}" class="btn btn-primary">
                                 Create <i class="fa fa-plus"></i>
                             </a>
+                        @endif
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CashADVI\Export\Excel;
 use App\Models\CreateClient;
 use App\Models\CreatePrincipal;
 use App\Models\CreateProject;
@@ -15,20 +16,15 @@ use Yajra\DataTables\DataTables;
 
 class CashAdvanceInternalController extends Controller
 {
-    
+    use Excel;
+
+
     public function indexPJl()
     {
         $dataProjetsInernal = DB::table('project_internal')->get();
         $idProject = DB::table('project_internal')->select('nama_project')->get();
         $namaPIC = DB::table('project_internal')->select('pic')->get();
 
-        // dd($namaPIC);
-
-        // // $tm = CreateProject::with('detail')->find('2');
-        // $tm = DB::table('project_internal')->where('id', '4')->first();
-
-
-        // return response()->json($tm->id);
 
         return view('corporate.cashAdvanceInternal.createProject.index',compact('dataProjetsInernal', 'idProject', 'namaPIC'));
     }
@@ -142,6 +138,8 @@ class CashAdvanceInternalController extends Controller
             "file"              => $file_name,
             "realisasi"         => '-',
             "nominal"           => $nominal,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
         ]);
 
         // Redirect dengan pesan sukses
@@ -181,6 +179,8 @@ class CashAdvanceInternalController extends Controller
             "file"              => empty($request->file) ? $data->file : $fileName,
             "realisasi"         => $request->realisasi,
             "nominal"           => str_replace(".", "", $request->nominal),
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
         ]);
 
         return redirect('/index-createproject-internal')->with([
@@ -237,32 +237,27 @@ class CashAdvanceInternalController extends Controller
     }
 
 
-    public function saveTMI(Request $request)
-    {   
-        $file_request = $request -> file('upload_request');
-        $file_ext_request = $file_request -> getClientOriginalName();
-        $file_name_request = time(). $file_ext_request;
-        $file_path_request = public_path ('file_request/');
-        $file_request -> move ($file_path_request, $file_name_request);
+    // public function saveTMI(Request $request)
+    // {   
+    //     $file_request = $request -> file('upload_request');
+    //     $file_ext_request = $file_request -> getClientOriginalName();
+    //     $file_name_request = time(). $file_ext_request;
+    //     $file_path_request = public_path ('file_request/');
+    //     $file_request -> move ($file_path_request, $file_name_request);
 
-        // $file_release = $request -> file('upload_release');
-        // $file_ext_release = $file_release -> getClientOriginalName();
-        // $file_name_release = time(). $file_ext_release;
-        // $file_path_release = public_path ('file_release/');
-        // $file_release -> move ($file_path_release, $file_name_release);
 
-        TransactionMakerACDC::create([
-            "tanggal" => $request->tanggal,
-            "jenis_transaksi" => $request->jenis_transaksi,
-            "nama_tujuan" => $request->nama_tujuan,
-            "nominal" => $request->nominal,
-            "keterangan" => $request->keterangan,
-            "upload_request" => $request->upload_request = $file_name_request,
-            "upload_release" => '-'
-        ]);
+    //     TransactionMakerACDC::create([
+    //         "tanggal" => $request->tanggal,
+    //         "jenis_transaksi" => $request->jenis_transaksi,
+    //         "nama_tujuan" => $request->nama_tujuan,
+    //         "nominal" => $request->nominal,
+    //         "keterangan" => $request->keterangan,
+    //         "upload_request" => $request->upload_request = $file_name_request,
+    //         "upload_release" => '-'
+    //     ]);
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
 
     public function saveTMACInternal(Request $request,$id)
@@ -277,12 +272,6 @@ class CashAdvanceInternalController extends Controller
         $file_path_request = public_path ('file_request_internal/');
         $file_request->move($file_path_request, $file_name_request);
 
-        // $file_release = $request->file('upload_release');
-        // $file_ext_release = $file_release -> getClientOriginalName();
-        // $file_name_release = time(). $file_ext_release;
-        // $file_path_release = public_path('file_request_internal/');
-        // $file_release->move($file_path_release, $file_name_release);
-
 
         DB::table('transactions_maker_internal')->insert([
             "id_project_internal" => $tm->id,
@@ -293,6 +282,8 @@ class CashAdvanceInternalController extends Controller
             "keterangan"        => $request->keterangan,
             "upload_request"    => $file_name_request,
             "upload_release"    => '-',
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
         ]);
 
         return redirect(route('showProjectInternal', $id))->with([
@@ -339,6 +330,8 @@ class CashAdvanceInternalController extends Controller
                 "nominal"                       => empty($request->nominal) ? $edittm->nominal : $request->nominal,
                 "keterangan"                    => empty($request->keterangan) ? $edittm->keterangan : $request->keterangan,
                 "id_project_internal"           => $request->cpt_id,
+                'created_at'        => Carbon::now(),
+                'updated_at'        => Carbon::now(),
             ]);
             // DB::table('project_internal')->where('id', $id)->update([
             //     "nama_project"                  => $request->project_name,
@@ -372,6 +365,8 @@ class CashAdvanceInternalController extends Controller
                 "nominal"                       => $request->nominal ?? $edittm->nominal ?? '-',
                 "keterangan"                    => $request->keterangan ?? $edittm->keterangan ?? '-',
                 "id_project_internal"           => $request->cpt_id ?? $edittm->id_project_internal,
+                'created_at'        => Carbon::now(),
+                'updated_at'        => Carbon::now(),
             ]);
         
             
@@ -389,6 +384,30 @@ class CashAdvanceInternalController extends Controller
         $item = DB::table('transactions_maker_internal')->where('id', $id)->first();
 
         return view('corporate.cashAdvanceInternal.transactionMakerInternal.editDataTMKI',compact('item'));
+    }
+
+
+    public function export($id)
+    {
+        // Ambil data project_internal berdasarkan ID
+        $cpt = DB::table('project_internal')->where('id', $id)->first();
+        
+        if (!$cpt) {
+            return response()->json(['error' => 'Project not found'], 404);
+        }
+
+        // Ambil data transactions_maker_internal berdasarkan id_project_internal
+        $ctm = DB::table('transactions_maker_internal')->where('id_project_internal', $cpt->id)->get();
+
+        @unlink(public_path("/export/file-project.xlsx"));
+        $headers = [
+            'Content-Type' => 'application/xlsx',
+        ];
+
+        // Panggil fungsi doExportInternal dari trait Excel
+        $export = self::doExportInternal($cpt, $ctm);
+
+        return response()->download(public_path($export), 'file-project.xlsx', $headers)->deleteFileAfterSend(false);
     }
 
 }

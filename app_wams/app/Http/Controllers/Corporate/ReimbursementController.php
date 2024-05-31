@@ -135,8 +135,12 @@ class ReimbursementController extends Controller
                     $btn_delete = ' <a href="javascript:void(0)" class="btn btn-danger btn-sm delete" data-id="' . $val->id . '" title="Hapus data"><i class="fas fa-trash "></i></a>';
                     $transMaker = '<a href="javascript:void(0)" class="btn btn-primary btn-sm maker" onclick="CreateTMReim(' . $val->id . ')">Transaction Maker</a>';
 
+                    if (auth()->user()->name !== 'Bona Napitupulu') {
+                        return $btn_detail . ' ' . $btn_edit . ' ' . $btn_delete . ' ' . $transMaker;
+                    }
 
-                    return $btn_detail . ' ' . $btn_edit . ' ' . $btn_delete . ' ' . $transMaker;
+                    return $btn_detail;
+
                 })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('search')) {

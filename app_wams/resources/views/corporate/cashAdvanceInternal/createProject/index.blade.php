@@ -115,7 +115,7 @@
                             <a href="{{route('/CreateProjectInternal')}}" class="btn btn-primary">
                                 Create <i class="fa fa-plus"></i>
                             </a>
-                        @endif   
+                          @endif 
                         </div>
                     </div>
                 </div>

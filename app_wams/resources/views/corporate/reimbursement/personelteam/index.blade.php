@@ -15,7 +15,9 @@
     </div>
     <div class="card" style="border-radius: 2em">
         <div class="card-header">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Create</button>
+        @if(auth()->user()->name !== 'Bona Napitupulu')
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Create</button>
+        @endif
         </div>
         <div class="card-body">
         <div class="table-responsive">
@@ -25,7 +27,9 @@
                         <th>No</th>
                         <th>Divisi</th>
                         <th>Nama Personel</th>
-                        <th>Action</th>
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
+                          <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
 
@@ -35,9 +39,11 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->divisi }}</td>
                         <td>{{ $item->nama_personel }}</td>
-                        <td>
+                        @if(auth()->user()->name !== 'Bona Napitupulu')
+                          <td>
                             <a href="{{ route('personeldelete', $item->id) }}" onClick="javascript: return confirm('Apahkah Anda Ingin Menghapusnya?');" class="btn btn-danger">Delete</a>
-                        </td>
+                          </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

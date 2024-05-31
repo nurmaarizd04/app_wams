@@ -642,9 +642,9 @@ Route::group(['middleware'  => ['auth']], function () {
   Route::post('/Transaction-Maker/internal/update/{id}',[CashAdvanceInternalController::class,'updateTMACDCINTERNAL'])->name('update-TM-INTERNAL');
   Route::post('/Transaction-Maker/internal/update-data/{id}',[CashAdvanceInternalController::class,'updateDataTMACDCINTERNAL'])->name('update-data-TM-INTERNAL');
   Route::get('/editTransactionMakerInternal/{id}',[CashAdvanceInternalController::class,'editTransactionMakerInternal'])->name('editTransactionMakerInternal');
+  // excle
+  Route::get('/export-project-internal/{id}', [CashAdvanceInternalController::class, 'export'])->name('export-project-internal');
 
-
-  // Route::get('/saveTMI/{id}',[CashAdvanceInternalController::class,'saveTMI'])->name('saveTMI');
 
 
 });

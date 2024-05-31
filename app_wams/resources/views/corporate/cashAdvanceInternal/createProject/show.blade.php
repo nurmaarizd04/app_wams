@@ -122,11 +122,12 @@
             <p>Total Advance : Rp. {{number_format($total)}} </p>
             <p>Sisa : Rp. {{number_format($sisa)}}</p>
             
-        
-
-
 
             <a href="{{ route('indexPJl') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('export-project-internal', ['id' => $cpt->id]) }}" class="btn btn-success">
+                    Export <i class="fa fa-print"></i>
+                </a>
+
         </div>
     </div>
 
