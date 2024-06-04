@@ -25,7 +25,7 @@
                         <td>{{ $tmreim->nama_project }}</td>
                     </tr>
                     <tr>
-                        <td>PIC Busssines Chanel</td>
+                        <td>PIC</td>
                         <td>:</td>
                         <td>{{ $tmreim->pic_bussiness_channel }}</td>
                     </tr>

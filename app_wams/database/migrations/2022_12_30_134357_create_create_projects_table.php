@@ -20,14 +20,15 @@ class CreateCreateProjectsTable extends Migration
             $table->string('principal_name');
             $table->string('client_name');
             $table->string('file');
-            $table->integer('bmt');
-            $table->integer('services');
+            $table->bigInteger('bmt');
+            $table->bigInteger('services');
             $table->string('lain');
-            $table->integer('subtotal');
-            $table->integer('bunga_admin');
-            $table->integer('biaya_admin');
-            $table->integer('biaya_pengurangan');
-            $table->integer('total_final');
+            $table->bigInteger('wapu');
+            $table->bigInteger('subtotal');
+            $table->bigInteger('bunga_admin');
+            $table->bigInteger('biaya_admin');
+            $table->bigInteger('biaya_pengurangan');
+            $table->bigInteger('total_final');
             $table->timestamps();
         });
     }

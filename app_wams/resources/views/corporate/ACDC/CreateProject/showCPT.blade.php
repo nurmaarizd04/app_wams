@@ -38,6 +38,11 @@
                         <td>Rp. {{ number_format($cpt->bmt) }}</td>
                     </tr>
                     <tr>
+                        <td>WAPU</td>
+                        <td>:</td>
+                        <td>Rp. {{ number_format($cpt->wapu) }}</td>
+                    </tr>
+                    <tr>
                         <td>Services</td>
                         <td>:</td>
                         <td>Rp. {{ number_format($cpt->services) }}</td>
@@ -58,7 +63,7 @@
                         <td>Rp. {{ number_format($cpt->biaya_admin) }}</td>
                     </tr>
                     <tr>
-                        <td>Biaya Pengurangan</td>
+                        <td>Biaya Lain</td>
                         <td>:</td>
                         <td>Rp. {{ number_format($cpt->biaya_pengurangan) }}</td>
                     </tr>

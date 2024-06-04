@@ -46,6 +46,7 @@ class ACDCController extends Controller
             "subtotal" => $request->subtotal,
             "bunga_admin" => $request->bunga_admin,
             "biaya_admin" => $request->biaya_admin,
+            "wapu" => $request->wapu,
             "biaya_pengurangan" => str_replace(".", "", $request->biaya_pengurangan),
             "total_final" => $request->final_subtotal,
         ]);
@@ -208,7 +209,7 @@ class ACDCController extends Controller
             $file_path = public_path('file_hitungan/');
             $file->move($file_path, $file_name);
         }
-
+        
         CreateProject::create([
             "id_project" => $request->id_project,
             "project_name" => $request->project_name,
@@ -221,6 +222,7 @@ class ACDCController extends Controller
             "subtotal" => $request->subtotal,
             "bunga_admin" => $request->bunga_admin,
             "biaya_admin" => $request->biaya_admin,
+            "wapu" => str_replace(".", "", $request->wapu),
             "biaya_pengurangan" => str_replace(".", "", $request->biaya_pengurangan),
             "total_final" => $request->final_subtotal,
 
