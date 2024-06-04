@@ -232,7 +232,7 @@
                 let admin_cost = Number($("#admin_cost").val().replace(/\./g, "")) || 0;
                 let decrement_cost = Number($("#decrement_cost").val().replace(/\./g, "")) || 0;
 
-                if (decrement_cost > 0) {
+                if (decrement_cost !== '') {
                     let final_subtotal = subtotal - admin_cost - decrement_cost;
 
                     $("#displayFinal").text(numberWithCommas(final_subtotal));
