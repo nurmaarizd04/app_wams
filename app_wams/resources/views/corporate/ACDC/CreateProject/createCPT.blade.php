@@ -123,7 +123,8 @@
                                         <span class="input-group-text">Rp</span>
                                     </div>
                                     <input type="text" id="other" class="form-control uang calculate"
-                                        aria-label="Amount" name="lain" value='{{ old('lain', '') }}' min=0 required autocomplete="off">
+                                        aria-label="Amount" name="lain" value='{{ old('lain', '') }}' min=0 required
+                                        autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -183,7 +184,8 @@
                                         <span class="input-group-text">Rp</span>
                                     </div>
                                     <div id="displayFinal" class="form-control">0</div>
-                                    <input type="hidden" id="final_subtotal" class="form-control" name="final_subtotal" min=1>
+                                    <input type="hidden" id="final_subtotal" class="form-control" name="final_subtotal"
+                                        min=1>
                                 </div>
                                 <p class="text-sm text-muted">Final Subtotal <b>dari</b> Subtotal - Biaya admin - Biaya
                                     Lain</p>
@@ -212,32 +214,46 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
+            function parseNumber(value) {
+                // Remove all dots and replace comma with dot for decimal conversion
+                value = value.replace(/\./g, "").replace(/,/g, ".");
+                return isNaN(value) ? NaN : parseFloat(value);
+            }
+
+            function numberWithCommas(x) {
+                x = x.toString().split('.');
+                x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                // If there is a decimal part, format it properly
+                if (x[1]) {
+                    x[1] = x[1].replace(/\./g, ""); // Remove any dots in the decimal part
+                }
+                return x.join(',');
+            }
+
             function calculateSubtotal() {
-                let value_bmt = Number($("#bmt_awal").val().replace(/\./g, "")) || 0;
-                let service = Number($("#service").val().replace(/\./g, "")) || 0;
-                let wapu = Number($("#wapu").val().replace(/\./g, "")) || 0;
-                let other = Number($("#other").val().replace(/\./g, "")) || 0;
+                let value_bmt = parseNumber($("#bmt_awal").val());
+                let service = parseNumber($("#service").val());
+                let wapu = parseNumber($("#wapu").val());
+                let other = parseNumber($("#other").val());
 
                 let subtotal = value_bmt + wapu + service + other;
-                let bunga_admin = (Number($("#admin_bunga").val()) / 100) * subtotal;
+                let bunga_admin = (parseNumber($("#admin_bunga").val()) / 100) * subtotal;
 
-                $("#subtotal").val(subtotal);
-                $("#displaySubtotal").text(numberWithCommas(subtotal));
-                $("#admin_cost").val(bunga_admin);
-                $("#displayCost").text(numberWithCommas(bunga_admin));
+                $("#subtotal").val(subtotal.toFixed(2));
+                $("#displaySubtotal").text(numberWithCommas(subtotal.toFixed(2)));
+                $("#admin_cost").val(bunga_admin.toFixed(2));
+                $("#displayCost").text(numberWithCommas(bunga_admin.toFixed(2)));
             }
 
             function calculateFinalSubtotal() {
-                let subtotal = Number($("#subtotal").val().replace(/\./g, "")) || 0;
-                let admin_cost = Number($("#admin_cost").val().replace(/\./g, "")) || 0;
-                let decrement_cost = Number($("#decrement_cost").val().replace(/\./g, "")) || 0;
+                let subtotal = parseNumber($("#subtotal").val());
+                let admin_cost = parseNumber($("#admin_cost").val());
+                let decrement_cost = parseNumber($("#decrement_cost").val());
 
-                if (decrement_cost !== '') {
-                    let final_subtotal = subtotal - admin_cost - decrement_cost;
+                let final_subtotal = subtotal - admin_cost - decrement_cost;
 
-                    $("#displayFinal").text(numberWithCommas(final_subtotal));
-                    $("#final_subtotal").val(final_subtotal);
-                }
+                $("#displayFinal").text(numberWithCommas(final_subtotal.toFixed(2)));
+                $("#final_subtotal").val(final_subtotal.toFixed(2));
             }
 
             $(".calculate").blur(function(e) {
@@ -267,7 +283,13 @@
         });
 
         function numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            x = x.toString().split('.');
+            x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            // If there is a decimal part, format it properly
+            if (x[1]) {
+                x[1] = x[1].replace(/\./g, ""); // Remove any dots in the decimal part
+            }
+            return x.join(',');
         }
     </script>
 @endsection
