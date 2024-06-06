@@ -217,17 +217,13 @@
             function parseNumber(value) {
                 // Remove all dots and replace comma with dot for decimal conversion
                 value = value.replace(/\./g, "").replace(/,/g, ".");
-                return isNaN(value) ? NaN : parseFloat(value);
+                return isNaN(value) ? 0 : parseFloat(value);
             }
 
             function numberWithCommas(x) {
                 x = x.toString().split('.');
                 x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                // If there is a decimal part, format it properly
-                if (x[1]) {
-                    x[1] = x[1].replace(/\./g, ""); // Remove any dots in the decimal part
-                }
-                return x.join(',');
+                return x[0]; // Only return the integer part without decimals
             }
 
             function calculateSubtotal() {
@@ -235,14 +231,18 @@
                 let service = parseNumber($("#service").val());
                 let wapu = parseNumber($("#wapu").val());
                 let other = parseNumber($("#other").val());
+                let admin_bunga = parseNumber($("#admin_bunga").val());
 
                 let subtotal = value_bmt + wapu + service + other;
-                let bunga_admin = (parseNumber($("#admin_bunga").val()) / 100) * subtotal;
+                let bunga_admin = (admin_bunga / 100) * subtotal;
 
-                $("#subtotal").val(subtotal.toFixed(2));
-                $("#displaySubtotal").text(numberWithCommas(subtotal.toFixed(2)));
-                $("#admin_cost").val(bunga_admin.toFixed(2));
-                $("#displayCost").text(numberWithCommas(bunga_admin.toFixed(2)));
+                let roundedSubtotal = Math.round(subtotal);
+                let roundedBungaAdmin = Math.round(bunga_admin);
+
+                $("#subtotal").val(roundedSubtotal);
+                $("#displaySubtotal").text(numberWithCommas(roundedSubtotal));
+                $("#admin_cost").val(roundedBungaAdmin);
+                $("#displayCost").text(numberWithCommas(roundedBungaAdmin));
             }
 
             function calculateFinalSubtotal() {
@@ -251,9 +251,10 @@
                 let decrement_cost = parseNumber($("#decrement_cost").val());
 
                 let final_subtotal = subtotal - admin_cost - decrement_cost;
+                let roundedFinalSubtotal = Math.round(final_subtotal);
 
-                $("#displayFinal").text(numberWithCommas(final_subtotal.toFixed(2)));
-                $("#final_subtotal").val(final_subtotal.toFixed(2));
+                $("#displayFinal").text(numberWithCommas(roundedFinalSubtotal));
+                $("#final_subtotal").val(roundedFinalSubtotal);
             }
 
             $(".calculate").blur(function(e) {
@@ -285,11 +286,7 @@
         function numberWithCommas(x) {
             x = x.toString().split('.');
             x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            // If there is a decimal part, format it properly
-            if (x[1]) {
-                x[1] = x[1].replace(/\./g, ""); // Remove any dots in the decimal part
-            }
-            return x.join(',');
+            return x[0]; // Only return the integer part without decimals
         }
     </script>
 @endsection
