@@ -108,7 +108,7 @@
                         <?php
                             $nominal2 = 0;
                             $total_final2=0;
-                            foreach($cpt->detail as $tm){
+                            foreach($detail as $tm){
                             ?>
                         {{-- <a href="{{route('penawaran.edit',$i->id)}}">     --}}
                         <tr style="font-size: 13px;">

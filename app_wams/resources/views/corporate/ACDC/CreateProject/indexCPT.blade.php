@@ -73,7 +73,7 @@
                         <select id="client_filter" class="form-control select2">
                             <option value="" readonly>-----PILIH------</option>
                             @forelse ($client as $item)
-                                <option value="{{ $item->client_name }}">{{ $item->client_name }}</option>
+                                <option value="{{ $item->id }}">{{ $item->client_name }}</option>
                             @empty
                                 <option value="">tidak ada data</option>
                             @endforelse
@@ -86,7 +86,7 @@
                         <select id="principal_filter" class="form-control select2">
                             <option value="" readonly>-----PILIH------</option>
                             @forelse ($principal as $item)
-                                <option value="{{ $item->principal_name }}">{{ $item->principal_name }}</option>
+                                <option value="{{ $item->id }}">{{ $item->principal_name }}</option>
                             @empty
                                 <option value="">tidak ada data</option>
                             @endforelse
@@ -103,22 +103,6 @@
         </div>
     </div>
     <div class="card" style="border-radius: 2em">
-        <div class="card-header">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col pull-left"></div>
-                    <div class="col pull-right">
-                        <div style="float: right;">
-                        @if(auth()->user()->name !== 'Bona Napitupulu')
-                        <a href="{{route('/cpt')}}" class="btn btn-primary">
-                            Create <i class="fa fa-plus"></i>
-                        </a>
-                        @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-12">

@@ -15,7 +15,7 @@ class CreateTransactionMakerACDCSTable extends Migration
     {
         Schema::create('transaction_maker_a_c_d_c_s', function (Blueprint $table) {
             $table->id();
-            $table->string('tanggal');
+            $table->date('tanggal');
             $table->string('jenis_transaksi')->nullable();
             $table->string('nama_tujuan');
             $table->bigInteger('nominal')->nullable();

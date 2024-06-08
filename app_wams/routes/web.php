@@ -14,6 +14,8 @@ use App\Http\Controllers\Corporate\CMMController;
 use App\Http\Controllers\Corporate\CorporateController;
 use App\Http\Controllers\Corporate\DCLController;
 use App\Http\Controllers\Corporate\ExportACDC;
+use App\Http\Controllers\Corporate\MasterDataController;
+use App\Http\Controllers\Corporate\OptyAcdcController;
 use App\Http\Controllers\Corporate\ReimbursementController;
 use App\Http\Controllers\Corporate\ReportController as CorporateReportController;
 use App\Http\Controllers\Corporate\RevCost\SaldoAwalController;
@@ -621,6 +623,14 @@ Route::group(['middleware'  => ['auth']], function () {
 
   Route::get('/deletePRK/{id}',[CMMController::class,'deletePRK'])->name('deletePRK');
 
+  Route::resource('/master-data-customer', MasterDataController::class)->except(['show', 'update']);
+  Route::post('/mater-data-customer/{id}/update', [MasterDataController::class, 'update'])->name('master-data.update');
+
+  Route::resource('/project-opty-acdc', OptyAcdcController::class);
+  Route::post('/project-opty-acdc/maker/update/{id}', [OptyAcdcController::class, 'updateOptyMaker']);
+  Route::get('/opty-maker/{id}', [OptyAcdcController::class, 'deteailOptyMaker']);
+  Route::post('/opty-maker/{id}', [OptyAcdcController::class, 'addOptyMaker']);
+  Route::post('/move-opty/{id}', [OptyAcdcController::class, 'moveOptyToProject']);
 
   // CASH ADVANCE INTERNAL
   Route::get('/dashboardCashAdvanceInternal', [dashboardCashAdvanceController::class, 'index'])->name('dashboardCashAdvanceInternal');

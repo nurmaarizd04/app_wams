@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Corporate;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Corporate\Export\Excel;
-use App\Models\CreateProject;
 use App\Models\TransactionMakerACDC;
+use Illuminate\Support\Facades\DB;
 
 class ExportACDC extends Controller
 {
@@ -13,7 +13,23 @@ class ExportACDC extends Controller
 
     public function export($id)
     {
-        $cpt = CreateProject::find($id)->toArray();
+        $cpt = DB::table('create_projects')
+            ->join('opty_acdcs', 'create_projects.opty_acdc_id', '=', 'opty_acdcs.id')
+            ->select(
+                'create_projects.*',
+                'opty_acdcs.project_name'
+            )
+            ->where('create_projects.id', $id)
+            ->get()
+            ->map(function ($item) {
+                return (array) $item;
+            })
+            ->toArray();
+
+        if (!empty($cpt)) {
+            $cpt = (array) $cpt[0];
+        }
+
         $ctm = TransactionMakerACDC::where('cpt_id', $cpt['id'])->get();
 
         @unlink("/export/file-project.xlsx");

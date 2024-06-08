@@ -15,20 +15,22 @@ class CreateCreateProjectsTable extends Migration
     {
         Schema::create('create_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('id_project');
-            $table->string('project_name');
-            $table->string('principal_name');
-            $table->string('client_name');
-            $table->string('file');
-            $table->bigInteger('bmt');
-            $table->bigInteger('services');
-            $table->string('lain');
-            $table->bigInteger('wapu');
-            $table->bigInteger('subtotal');
-            $table->bigInteger('bunga_admin');
-            $table->bigInteger('biaya_admin');
-            $table->bigInteger('biaya_pengurangan');
-            $table->bigInteger('total_final');
+            $table->string('id_project')->unique();
+            $table->integer('opty_acdc_id');
+            $table->integer('client_id')->nullable();
+            $table->integer('principal_id')->nullable();
+            $table->string('file')->nullable();
+            $table->string('type_wapu')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->bigInteger('bmt')->nullable();
+            $table->bigInteger('services')->nullable();
+            $table->string('lain')->nullable();
+            $table->bigInteger('wapu')->nullable();
+            $table->bigInteger('subtotal')->nullable();
+            $table->bigInteger('bunga_admin')->nullable();
+            $table->bigInteger('biaya_admin')->nullable();
+            $table->bigInteger('biaya_pengurangan')->nullable();
+            $table->bigInteger('total_final')->nullable();
             $table->timestamps();
         });
     }

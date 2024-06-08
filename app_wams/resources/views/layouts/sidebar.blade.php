@@ -338,17 +338,40 @@
                         </a>
                     </li> -->
 
-                    <li class="sidebar-item {{request()->is('index-createprincipal*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}} has-sub">
+                    <li class="sidebar-item
+                        {{request()->is('index-createprincipal*') ||
+                        request()->is('index-createclient') ||
+                        request()->is('index-createproject') ||
+                        request()->is('CreateProject') ||
+                        request()->is('master-data-customer*') ||
+                        request()->is('project-opty-acdc*') ||
+                        request()->is('showCPT*') ? 'active' : ''
+                    }} has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-people-fill"></i>
                             <span>ACDC</span>
                         </a>
-                        <ul class="submenu {{request()->is('index-createprincipal*') || request()->is('OpptyProject*') || request()->is('index-createclient') || request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') || request()->is('OpptyProject*') || request()->is('dashboardCorporate*')  ? 'active' : ''}}">
-                    
+                        <ul class="submenu
+                            {{request()->is('index-createprincipal*') ||
+                            request()->is('OpptyProject*') ||
+                            request()->is('index-createclient') ||
+                            request()->is('index-createproject') ||
+                            request()->is('CreateProject') ||
+                            request()->is('showCPT*') ||
+                            request()->is('OpptyProject*') ||
+                            request()->is('master-data-customer*') ||
+                            request()->is('project-opty-acdc*') ||
+                            request()->is('dashboardCorporate*')  ? 'active' : ''
+                        }}">
+
                             <li class="submenu-item {{request()->is('dashboardCorporate') ? 'active' : ''}}">
                                 <a href="/dashboardCorporate">
                                     Dashboard
-                                </a>                            
+                                </a>
+                            </li>
+
+                            <li class="submenu-item {{request()->is('master-data-customer*') ? 'active' : ''}}">
+                                <a href="/master-data-customer">Master Data Customer</a>
                             </li>
 
                             <li class="submenu-item {{request()->is('index-createprincipal*') ? 'active' : ''}}">
@@ -359,6 +382,9 @@
                             </li>
                             <li class="submenu-item {{request()->is('index-createproject') || request()->is('CreateProject') || request()->is('showCPT*') ? 'active' : ''}}">
                                 <a href="/index-createproject">Project</a>
+                            </li>
+                            <li class="submenu-item {{request()->is('project-opty-acdc*') ? 'active' : ''}}">
+                                <a href="/project-opty-acdc">Opty</a>
                             </li>
                         </ul>
                     </li>

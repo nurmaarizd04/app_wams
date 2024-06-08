@@ -25,6 +25,7 @@ class ACDCController extends Controller
     public function updateProjectAcdc(Request $request, $id)
     {
         $data = CreateProject::find($id);
+        $fileName = "";
 
         if (!empty($request->file)) {
             unlink("/file_hitungan/$data->file");
@@ -36,16 +37,16 @@ class ACDCController extends Controller
 
         $data->update([
             "id_project" => $request->id_project,
-            "project_name" => $request->project_name,
-            "principal_name" => $request->principal_name,
-            "client_name" => $request->client_name,
+            "principal_id" => $request->principal_name,
+            "client_id" => $request->client_name,
             "file" => empty($request->file) ? $data->file : $fileName,
             "bmt" => str_replace(".", "", $request->bmt),
             "services" => str_replace(".", "", $request->services),
-            "lain" => empty($request->other) ? $request->lain : 0,
+            "lain" => empty($request->other) ? str_replace(".", "", $request->lain) : 0,
             "subtotal" => $request->subtotal,
             "bunga_admin" => $request->bunga_admin,
             "biaya_admin" => $request->biaya_admin,
+            "type_wapu" => $request->type_wapu,
             "wapu" => $request->wapu,
             "biaya_pengurangan" => str_replace(".", "", $request->biaya_pengurangan),
             "total_final" => $request->final_subtotal,
@@ -63,12 +64,15 @@ class ACDCController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('create_projects')
+                ->join('opty_acdcs', 'create_projects.opty_acdc_id', 'opty_acdcs.id')
+                ->join('create_clients', 'create_projects.client_id', 'create_clients.id')
+                ->join('create_principals', 'create_projects.principal_id', 'create_principals.id')
                 ->select(
                     'create_projects.id',
                     'create_projects.id_project as code',
-                    'create_projects.project_name as name',
-                    'create_projects.client_name',
-                    'create_projects.principal_name',
+                    'opty_acdcs.project_name as name',
+                    'create_clients.client_name',
+                    'create_principals.principal_name',
                     'create_projects.total_final',
                     'create_projects.created_at'
                 )->latest('create_projects.id');
@@ -95,19 +99,18 @@ class ACDCController extends Controller
                     }
 
                     return $btn_detail;
-
                 })
                 ->filter(function ($instance) use ($request) {
                     if ($request->get('search')) {
-                        $instance->where('create_projects.project_name', 'LIKE', '%' . request()->search . '%');
+                        $instance->where('opty_acdcs.project_name', 'LIKE', '%' . request()->search . '%');
                     }
 
                     if (!empty($request->client)) {
-                        $instance->where('client_name', $request->client);
+                        $instance->where('client_id', $request->client);
                     }
 
                     if (!empty($request->principal)) {
-                        $instance->where('principal_name', $request->principal);
+                        $instance->where('principal_id', $request->principal);
                     }
 
                     if ($request->get('start_date')) {
@@ -175,8 +178,8 @@ class ACDCController extends Controller
 
     public function indexCPT(Request $request)
     {
-        $client = DB::table('create_clients')->select('client_name')->get();
-        $principal = DB::table('create_principals')->select('principal_name')->get();
+        $client = DB::table('create_clients')->select('id', 'client_name')->get();
+        $principal = DB::table('create_principals')->select('id', 'principal_name')->get();
 
         return view('corporate.ACDC.CreateProject.indexCPT', compact('client', 'principal'));
     }
@@ -193,7 +196,10 @@ class ACDCController extends Controller
         $cp = CreatePrincipal::all();
         $cc = CreateClient::all();
 
-        $data = CreateProject::find($id);
+        $data = DB::table('create_projects')
+            ->leftJoin('opty_acdcs', 'create_projects.opty_acdc_id', '=', 'opty_acdcs.id')
+            ->select('create_projects.*', 'opty_acdcs.project_name')
+            ->first();
 
         return view('corporate.ACDC.CreateProject.edit', compact('cp', 'cc', 'data'));
     }
@@ -209,7 +215,7 @@ class ACDCController extends Controller
             $file_path = public_path('file_hitungan/');
             $file->move($file_path, $file_name);
         }
-        
+
         CreateProject::create([
             "id_project" => $request->id_project,
             "project_name" => $request->project_name,
@@ -319,9 +325,17 @@ class ACDCController extends Controller
 
     public function showCPT($id)
     {
-        $cpt = CreateProject::with('detail')->find($id);
+        $cpt = DB::table('create_projects')
+            ->join('opty_acdcs', 'create_projects.opty_acdc_id', 'opty_acdcs.id')
+            ->select(
+                'create_projects.*',
+                'opty_acdcs.project_name'
+            )->where('create_projects.id', $id)
+            ->first();
 
-        return view('corporate.ACDC.CreateProject.showCPT', compact('cpt'));
+            $detail = TransactionMakerACDC::where('cpt_id', $id)->get();
+
+        return view('corporate.ACDC.CreateProject.showCPT', compact('cpt', 'detail'));
     }
 
     public function editTM($id)

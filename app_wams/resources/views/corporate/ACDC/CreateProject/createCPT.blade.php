@@ -282,11 +282,5 @@
                 reverse: true
             });
         });
-
-        function numberWithCommas(x) {
-            x = x.toString().split('.');
-            x[0] = x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return x[0]; // Only return the integer part without decimals
-        }
     </script>
 @endsection
