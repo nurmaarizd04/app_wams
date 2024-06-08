@@ -197,8 +197,9 @@ class ACDCController extends Controller
         $cc = CreateClient::all();
 
         $data = DB::table('create_projects')
-            ->leftJoin('opty_acdcs', 'create_projects.opty_acdc_id', '=', 'opty_acdcs.id')
+            ->join('opty_acdcs', 'create_projects.opty_acdc_id', '=', 'opty_acdcs.id')
             ->select('create_projects.*', 'opty_acdcs.project_name')
+            ->where('create_projects.id', $id)
             ->first();
 
         return view('corporate.ACDC.CreateProject.edit', compact('cp', 'cc', 'data'));

@@ -330,7 +330,7 @@ class OptyAcdcController extends Controller
 
                     DB::commit();
 
-                    return redirect('/editCP/' . $project->id)->with([
+                    return redirect()->route('editcp', ['id' => $project->id])->with([
                         'success' => "Berhasil memindah data Opty $opty->project_name ke Project"
                     ]);
                 }
