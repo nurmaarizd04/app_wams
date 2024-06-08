@@ -139,7 +139,7 @@
                                 <div class="col-sm-12 col-md-7">
                                     <select name="type" class="form-control" id="type" required>
                                         <option value="">------PILIH------</option>
-                                        <option value="exist">Data sudah ada</option>
+                                        {{-- <option value="exist">Data sudah ada</option> --}}
                                         <option value="new">Data baru</option>
                                     </select>
                                 </div>
