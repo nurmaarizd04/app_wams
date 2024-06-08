@@ -86,12 +86,12 @@
                 <hr>
 
                 <div class="pt-3 pb-3">
-                @if(auth()->user()->name !== 'Bona Napitupulu')
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm maker"
-                    onclick="CreateTM({{ $cpt->id }})">
-                    Transaction Maker <i class="fa fa-plus"></i>
-                    </a>
-                @endif
+                    @if (auth()->user()->name !== 'Bona Napitupulu')
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm maker"
+                            onclick="CreateTM({{ $cpt->id }})">
+                            Transaction Maker <i class="fa fa-plus"></i>
+                        </a>
+                    @endif
                 </div>
                 <table class="table table-hover table-responsive table-bordered ">
                     <thead>
@@ -119,17 +119,25 @@
                                 <ul>
                                     <li>
                                         File Request : <br>
-                                        <a href="/file_request/{{ $tm->upload_request }}" download>Download</a>
+                                        @if (!empty($tm->upload_request))
+                                            <a href="/file_request/{{ $tm->upload_request }}" download>Download</a>
+                                        @else
+                                            Tidak ada file
+                                        @endif
                                     </li>
                                     <li>
                                         File Release : <br>
-                                        <a href="/file_realese/{{ $tm->upload_release }}" download>
-                                            Download
-                                        </a>
+                                        @if (!empty($tm->upload_release))
+                                            <a href="/file_realese/{{ $tm->upload_release }}" download>
+                                                Download
+                                            </a>
+                                        @else
+                                            Tidak ada file
+                                        @endif
                                     </li>
                                 </ul>
                             </td>
-                            @if(auth()->user()->name !== 'Bona Napitupulu')
+                            @if (auth()->user()->name !== 'Bona Napitupulu')
                                 <td>
                                     <a class="btn btn-warning" onclick="moveTM({{ $tm->id }})">Pindah Data</a>
                                     <a class="btn btn-primary" onclick="editTM({{ $tm->id }})">Edit Data</a>
